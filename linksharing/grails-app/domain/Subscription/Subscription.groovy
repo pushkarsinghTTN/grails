@@ -11,7 +11,12 @@ class Subscription {
     Date lastUpdated
     Date dateCreated
 
-    static belongsTo = [user:User,topic:Topic]
+    Subscription(User user, Topic topic, Seriousness seriousness) {
+        this.user = user
+        this.topic = topic
+        this.seriousness = seriousness
+    }
+    static belongsTo = [user:User, topic:Topic]
 
     static constraints = {
         user(nullable: false)

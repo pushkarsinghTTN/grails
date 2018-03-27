@@ -3,6 +3,7 @@ package Topic
 import Resource.Resource
 import Subscription.Subscription
 import User.User
+import enumeration.Seriousness
 import enumeration.Visibility
 
 class Topic {
@@ -24,6 +25,15 @@ class Topic {
         name(unique: 'createdby', blank: false, nullable: false,)
         visibility(nullable: false)
         createdby(nullable: false)
+    }
+
+    def afterInsert(){
+        this.subscriptions=[]
+        Subscription subscription = new Subscription(createdby,this,Seriousness.VERYSERIOUS)
+        if(subscription.validate())
+            this.subscriptions.add(subscription)
+        log.info("Topic has errors while validating- ${subscription.hasErrors()}")
+
     }
 
 
