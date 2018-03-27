@@ -28,12 +28,15 @@ class Topic {
     }
 
     def afterInsert(){
-        this.subscriptions=[]
-        Subscription subscription = new Subscription(createdby,this,Seriousness.VERYSERIOUS)
-        if(subscription.validate())
-            this.subscriptions.add(subscription)
-        log.info("Topic has errors while validating- ${subscription.hasErrors()}")
-
+        Topic.withNewSession {
+            this.subscriptions = []
+            Subscription subscription = new Subscription(createdby, this, Seriousness.VERYSERIOUS)
+            if (subscription.validate()) {
+                this.subscriptions.add(subscription)
+                subscription.save()
+            }
+            log.info("Subscription has errors while validating- ${subscription.hasErrors()}")
+        }
     }
 
 
