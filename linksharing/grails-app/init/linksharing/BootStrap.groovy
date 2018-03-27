@@ -72,7 +72,7 @@ class BootStrap {
                     temp.topics.add(topic)
                     log.info("Topic has errors while validating- ${topic.hasErrors()}")
                 }
-                it.save()
+                temp.save()
             }
         }
     }
