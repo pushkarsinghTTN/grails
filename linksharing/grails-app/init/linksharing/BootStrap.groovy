@@ -3,8 +3,10 @@ package linksharing
 import Resource.DocumentResource
 import Resource.LinkResource
 import Resource.Resource
+import Subscription.Subscription
 import Topic.Topic
 import User.User
+import enumeration.Seriousness
 import enumeration.Visibility
 
 class BootStrap {
@@ -26,6 +28,7 @@ class BootStrap {
 
         createTopic()
         createResources()
+        subscribeTopics()
 
     }
     def destroy = {
@@ -101,6 +104,24 @@ class BootStrap {
                         documentResource.save(flush:true)
                     }
                     log.info("DocumentResource has errors while validating- ${documentResource.hasErrors()}")
+                }
+            }
+        }
+    }
+
+    void subscribeTopics(){
+        List<User> userList= User.findAll()
+        List<Topic> topicList= Topic.findAll()
+        userList.each {
+            User temp=it
+            for(Topic topic: topicList){
+                if(topic.createdby!=temp) {
+                    if (!Subscription.findByUserAndTopic(temp, topic)) {
+                        Subscription subscription = new Subscription(temp, topic, Seriousness.SERIOUS)
+                        if(subscription.validate())
+                        subscription.save(flush: true)
+                        log.info("Subscription has errors while validating- ${subscription.hasErrors()}")
+                    }
                 }
             }
         }
