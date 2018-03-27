@@ -31,6 +31,7 @@ class BootStrap {
         createResources()
         subscribeTopics()
         createReadingItems()
+        createResourceRatings()
 
     }
     def destroy = {
@@ -40,6 +41,10 @@ class BootStrap {
 
         List<User> users = []
         User admin = new User("Pushkar", "Singh", "pushkar.singh", "pushkar180195", "pushkar.singh@tothenew.com", null, true, true);
+        admin.topics=[]
+        admin.subscriptions=[]
+        admin.readingItems=[]
+        admin.resources=[]
         /*//Q1
         if(admin.validate()){
             admin.save()
@@ -54,6 +59,10 @@ class BootStrap {
         }
 
         User user = new User("Archit", "Chauhan", "archit.chauhan", "archit1234", "archit.chauhan@tothenew.com", null, false, true);
+        user.topics=[]
+        user.subscriptions=[]
+        user.readingItems=[]
+        user.resources=[]
         /*//Q1
         if(user.validate()){
             user.save()
@@ -140,12 +149,16 @@ class BootStrap {
             for(User user: userList){
                 if(it.user==user && !user.topics.contains(it.topic)){
                     ReadingItem readingItem = new ReadingItem(user,true,it.topic.resources[0])
-                    if(readingItem.validate())
+                    if(readingItem.validate() && !user.readingItems.contains(readingItem))
                         readingItem.save()
                     log.info("ReadingItem has errors while validating- ${readingItem.hasErrors()}")
                 }
             }
         }
+    }
+
+    void createResourceRatings(){
+        
     }
 
 }
