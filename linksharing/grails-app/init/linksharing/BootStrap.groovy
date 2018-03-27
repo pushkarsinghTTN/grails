@@ -13,6 +13,12 @@ class BootStrap {
         log.info("User is valid- ${users.last().validate()}")
         log.info("User has errors while validating- ${users.last().hasErrors()}")
 
+        //Q4
+        /*if (User.count() == 0) {
+            println("Creating Users")
+            List<User> users = createusers()
+        }*/
+
     }
     def destroy = {
     }
