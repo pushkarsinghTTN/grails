@@ -10,7 +10,12 @@ class ReadingItem {
     Date lastUpdated
     Date dateCreated
 
-    static belongsTo = [user:User,resource:Resource]
+    ReadingItem(User user, Boolean isRead, Resource resource) {
+        this.user = user
+        this.isRead = isRead
+        this.resource = resource
+    }
+    static belongsTo = [user:User, resource:Resource]
 
     static constraints = {
         user(nullable: false)

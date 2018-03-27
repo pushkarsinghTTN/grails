@@ -1,5 +1,6 @@
 package linksharing
 
+import ReadingItem.ReadingItem
 import Resource.DocumentResource
 import Resource.LinkResource
 import Resource.Resource
@@ -29,6 +30,7 @@ class BootStrap {
         createTopic()
         createResources()
         subscribeTopics()
+        createReadingItems()
 
     }
     def destroy = {
@@ -80,7 +82,7 @@ class BootStrap {
                     topic.save(flush:true)
                     log.info("Topic has errors while validating- ${topic.hasErrors()}")
                 }
-                temp.save()
+                temp.save(flush:true)
             }
         }
     }
@@ -91,6 +93,7 @@ class BootStrap {
         topicList.each {
 //            println("iterating  the topics list")
             Topic temp = it
+            temp.resources=[]
             if (!Resource.findByTopic(temp)) {
 //                println("inside if statement")
                 (1..2).each {
@@ -98,14 +101,17 @@ class BootStrap {
                     DocumentResource documentResource = new DocumentResource(temp.createdby, "This resource is created by ${temp.createdby.name} for topic ${temp.name}", temp, "/${temp.createdby.name}/${temp.name}/${it}")
                     if (linkResource.validate()) {
                         linkResource.save(flush:true)
+                        temp.resources.add(linkResource)
                     }
                     log.info("LinkResource has errors while validating- ${linkResource.hasErrors()}")
                     if (documentResource.validate()) {
                         documentResource.save(flush:true)
+                        temp.resources.add(documentResource)
                     }
                     log.info("DocumentResource has errors while validating- ${documentResource.hasErrors()}")
                 }
             }
+            temp.save(flush:true)
         }
     }
 
@@ -122,6 +128,21 @@ class BootStrap {
                         subscription.save(flush: true)
                         log.info("Subscription has errors while validating- ${subscription.hasErrors()}")
                     }
+                }
+            }
+        }
+    }
+
+    void createReadingItems(){
+        List<Subscription> subscriptionList= Subscription.findAll()
+        List<User> userList= User.findAll()
+        subscriptionList.each {
+            for(User user: userList){
+                if(it.user==user && !user.topics.contains(it.topic)){
+                    ReadingItem readingItem = new ReadingItem(user,true,it.topic.resources[0])
+                    if(readingItem.validate())
+                        readingItem.save()
+                    log.info("ReadingItem has errors while validating- ${readingItem.hasErrors()}")
                 }
             }
         }
