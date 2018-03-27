@@ -1,5 +1,7 @@
 package Topic
 
+import Resource.Resource
+import Subscription.Subscription
 import User.User
 import enumeration.Visibility
 
@@ -16,7 +18,7 @@ class Topic {
     }
 
     static belongsTo = [createdby:User]
-//    static hasMany = [subscriptions:Subscription, resources:Resource]
+    static hasMany = [subscriptions:Subscription, resources:Resource]
 
     static constraints = {
         name(unique: 'createdby', blank: false, nullable: false,)

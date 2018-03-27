@@ -11,7 +11,7 @@ class Subscription {
     Date lastUpdated
     Date dateCreated
 
-    //static belongsTo = [user:User,topic:Topic]
+    static belongsTo = [user:User,topic:Topic]
 
     static constraints = {
         user(nullable: false)

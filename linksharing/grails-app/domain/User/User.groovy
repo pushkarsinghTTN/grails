@@ -22,7 +22,7 @@ class User{
         this.admin = admin
         this.active = active
     }
-    //static hasMany = [topics: Topic, subscriptions: Subscription, readingItems: ReadingItem, resources: Resource]
+    static hasMany = [topics: Topic, subscriptions: Subscription, readingItems: ReadingItem, resources: Resource]
 
     static constraints = {
         email(email: true, nullable: false, blank: false)
