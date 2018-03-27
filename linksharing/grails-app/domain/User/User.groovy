@@ -30,7 +30,7 @@ class User{
     }
 
     String getName(){
-        this.name= this.firstname+this.lastname
+        this.name= this.firstname+" "+this.lastname
         return name
     }
     static hasMany = [topics: Topic, subscriptions: Subscription, readingItems: ReadingItem, resources: Resource]
@@ -46,7 +46,7 @@ class User{
         active(nullable: true)
     }
 
-    static transients = ['firstname','lastname']
+    static transients = ['name']
 
 
 }
