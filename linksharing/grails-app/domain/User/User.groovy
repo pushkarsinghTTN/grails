@@ -1,5 +1,10 @@
 package User
 
+import ReadingItem.ReadingItem
+import Resource.Resource
+import Subscription.Subscription
+import Topic.Topic
+
 class User{
     String firstname
     String lastname
@@ -9,6 +14,7 @@ class User{
     Byte photo
     Boolean admin
     Boolean active
+    String name
     Date lastUpdated
     Date dateCreated
 
@@ -21,6 +27,11 @@ class User{
         this.photo = photo
         this.admin = admin
         this.active = active
+    }
+
+    String getName(){
+        this.name= this.firstname+this.lastname
+        return name
     }
     static hasMany = [topics: Topic, subscriptions: Subscription, readingItems: ReadingItem, resources: Resource]
 
