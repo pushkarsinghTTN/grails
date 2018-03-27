@@ -11,7 +11,7 @@ buildscript {
 }
 
 version "0.1"
-group "linksharing"
+group "gormdemo1"
 
 apply plugin:"eclipse"
 apply plugin:"idea"
@@ -50,6 +50,7 @@ dependencies {
     profile "org.grails.profiles:web"
     runtime "org.glassfish.web:el-impl:2.1.2-b03"
     runtime "com.h2database:h2"
+    runtime 'mysql:mysql-connector-java:5.1.36'
     runtime "org.apache.tomcat:tomcat-jdbc"
     runtime "com.bertramlabs.plugins:asset-pipeline-grails:2.14.8"
     testCompile "org.grails:grails-gorm-testing-support"
@@ -58,6 +59,7 @@ dependencies {
     testRuntime "org.seleniumhq.selenium:selenium-chrome-driver:2.47.1"
     testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
     testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
+    compile 'org.grails.plugins:grails-console:2.1.1'
 }
 
 bootRun {
