@@ -1,6 +1,8 @@
 package linksharing
 
+import Topic.Topic
 import User.User
+import enumeration.Visibility
 
 class BootStrap {
 
@@ -26,7 +28,6 @@ class BootStrap {
     List<User> createusers() {
 
         List<User> users = []
-
         User admin = new User("Pushkar", "Singh", "pushkar.singh", "pushkar180195", "pushkar.singh@tothenew.com",null, true, true);
         /*//Q1
         if(admin.validate()){
@@ -40,7 +41,6 @@ class BootStrap {
             admin.save(flush: true, failOnError: true)
             users.add(admin)
         }
-
 
         User user = new User("Archit", "Chauhan", "archit.chauhan", "archit1234", "archit.chauhan@tothenew.com",null, false, true);
         /*//Q1
