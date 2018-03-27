@@ -7,6 +7,11 @@ class BootStrap {
     def init = { servletContext ->
 
         List<User> users = createusers()
+        log.info("Admin is valid- ${users.first().validate()}")
+        log.info("Admin has errors while validating- ${users.first().hasErrors()}")
+
+        log.info("User is valid- ${users.last().validate()}")
+        log.info("User has errors while validating- ${users.last().hasErrors()}")
 
     }
     def destroy = {
