@@ -30,10 +30,12 @@ class User{
         firstname(nullable: false, blank: false)
         lastname(nullable: false, blank: false)
         username(nullable: false, blank: false)
-        photo(nullable: true)
+        photo(nullable: true,sqlType:'longBlob')
         admin(nullable: true)
         active(nullable: true)
     }
+
+    static transients = ['firstname','lastname']
 
 
 }
