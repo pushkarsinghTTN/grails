@@ -13,6 +13,12 @@ abstract class Resource {
     Date lastUpdated
     Date dateCreated
 
+    Resource(User createdby, String description, Topic topic) {
+        this.createdby = createdby
+        this.description = description
+        this.topic = topic
+    }
+
     static belongsTo = [createdby:User, topic:Topic]
     static hasMany = [ratings:ResourceRating, readingItems:ReadingItem]
 

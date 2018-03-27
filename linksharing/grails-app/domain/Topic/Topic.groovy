@@ -33,7 +33,7 @@ class Topic {
             Subscription subscription = new Subscription(createdby, this, Seriousness.VERYSERIOUS)
             if (subscription.validate()) {
                 this.subscriptions.add(subscription)
-                subscription.save()
+                subscription.save(flush:true)
             }
             log.info("Subscription has errors while validating- ${subscription.hasErrors()}")
         }
