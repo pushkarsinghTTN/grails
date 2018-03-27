@@ -21,6 +21,8 @@ class BootStrap {
             List<User> users = createusers()
         }*/
 
+        createtopic()
+
     }
     def destroy = {
     }
@@ -57,6 +59,22 @@ class BootStrap {
         }
 
         return users
+    }
+
+    void createtopic(){
+        List<User> allusers = User.findAll()
+        allusers.each {
+            if (it.topics==null) {
+                User temp=it
+                temp.topics=[]
+                (1..5).each {
+                    Topic topic = new Topic("Topic ${it} by ${temp.username}",Visibility.PUBLIC,temp)
+                    temp.topics.add(topic)
+                    log.info("Topic has errors while validating- ${topic.hasErrors()}")
+                }
+                it.save()
+            }
+        }
     }
 
 }
