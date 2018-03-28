@@ -1,9 +1,9 @@
-package Topic
+package readingItem
 
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 
-class TopicSpec extends Specification implements DomainUnitTest<Topic> {
+class ReadingItemSpec extends Specification implements DomainUnitTest<ReadingItem> {
 
     def setup() {
     }

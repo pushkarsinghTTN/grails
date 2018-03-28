@@ -1,21 +1,23 @@
 package linksharing
 
-import ReadingItem.ReadingItem
-import Resource.DocumentResource
-import Resource.LinkResource
-import Resource.Resource
-import ResourceRating.ResourceRating
-import Subscription.Subscription
-import Topic.Topic
-import User.User
+import readingItem.ReadingItem
+import resource.DocumentResource
+import resource.LinkResource
+import resource.Resource
+import resourceRating.ResourceRating
+import subscription.Subscription
+import topic.Topic
+import user.User
 import enumeration.Seriousness
 import enumeration.Visibility
+import util.Utility
 
 class BootStrap {
 
     def init = { servletContext ->
-
+        println "BootStrap."
         List<User> users = createUsers()
+        println "users = $users"
         log.info("Admin is valid- ${users.first().validate()}")
         log.info("Admin has errors while validating- ${users.first().hasErrors()}")
 
@@ -41,11 +43,18 @@ class BootStrap {
     List<User> createUsers() {
 
         List<User> users = []
-        User admin = new User("Pushkar", "Singh", "pushkar.singh", "pushkar180195", "pushkar.singh@tothenew.com", null, true, true);
-        admin.topics = []
-        admin.subscriptions = []
+        User admin = new User()
+        admin.firstname = "Pushkar"
+        admin.lastname = "Singh"
+        admin.username = "pushkar.singh"
+        admin.password = "pushkar180195"
+        admin.email = "pushkar.singh@tothenew.com"
+        admin.photo = null
+        admin.admin = true
+        admin.active = true
+
         admin.readingItems = []
-        admin.resources = []
+
         /*//Q1
         if(admin.validate()){
             admin.save()
@@ -59,11 +68,17 @@ class BootStrap {
             users.add(admin)
         }
 
-        User user = new User("Archit", "Chauhan", "archit.chauhan", "archit1234", "archit.chauhan@tothenew.com", null, false, true);
-        user.topics = []
-        user.subscriptions = []
+        User user = new User()
+        user.firstname = "Archit"
+        user.lastname = "Chauhan"
+        user.username = "archit.chauhan"
+        user.password = "archit1234"
+        user.email = "archit.chauhan@tothenew.com"
+        user.photo = null
+        user.admin = false
+        user.active = true
+
         user.readingItems = []
-        user.resources = []
         /*//Q1
         if(user.validate()){
             user.save()
@@ -83,15 +98,18 @@ class BootStrap {
     void createTopic() {
         List<User> allusers = User.findAll()
         allusers.each {
-            if (it.topics.size() == 0) {
+            if (!it.topics) {
                 User temp = it
                 (1..5).each {
-                    Topic topic = new Topic("Topic ${it} by ${temp.username}", Visibility.PUBLIC, temp)
-                    temp.topics.add(topic)
-                    topic.save(flush: true)
-                    log.info("Topic has errors while validating- ${topic.hasErrors()}")
+                    Topic topic = new Topic(name: "Topic ${it} by ${temp.username}", visibility: Visibility.PUBLIC, createdby: temp)
+                    if (!topic.save(flush: true))
+                        log.error("Error while saving- $topic")
+                    else {
+                        log.info("Saved Successfully : $topic")
+                        temp.addToTopics(topic)
+                    }
+                    temp.save(flush: true)
                 }
-                temp.save(flush: true)
             }
         }
     }
@@ -100,24 +118,25 @@ class BootStrap {
 
         List<Topic> topicList = Topic.findAll()
         topicList.each {
-//            println("iterating  the topics list")
             Topic temp = it
-            temp.resources = []
+            //temp.resources = []
             if (!Resource.findByTopic(temp)) {
-//                println("inside if statement")
                 (1..2).each {
-                    LinkResource linkResource = new LinkResource(temp.createdby, "This resource is created by ${temp.createdby.name} for topic- ${temp.name}", temp, "www.${temp.createdby.name}.com/${temp.name}/${it}")
-                    DocumentResource documentResource = new DocumentResource(temp.createdby, "This resource is created by ${temp.createdby.name} for topic ${temp.name}", temp, "/${temp.createdby.name}/${temp.name}/${it}")
-                    if (linkResource.validate()) {
-                        linkResource.save(flush: true)
-                        temp.resources.add(linkResource)
-                    }
-                    log.info("LinkResource has errors while validating- ${linkResource.hasErrors()}")
-                    if (documentResource.validate()) {
-                        documentResource.save(flush: true)
-                        temp.resources.add(documentResource)
-                    }
-                    log.info("DocumentResource has errors while validating- ${documentResource.hasErrors()}")
+                    LinkResource linkResource = new LinkResource(createdby: temp.createdby, description: "This resource is created by ${temp.createdby.name} for topic ${temp.name}", topic: temp, url: "www.${temp.createdby.name}.com/${temp.name}/${it}")
+                    DocumentResource documentResource = new DocumentResource(createdby: temp.createdby, description: "This resource is created by ${temp.createdby.name} for topic ${temp.name}", topic: temp, filepath: "/${temp.createdby.name}/${temp.name}/${it}")
+                    if (linkResource.save(flush: true)) {
+                        temp.addToResources(linkResource)
+                        temp.createdby.addToResources(linkResource)
+                        log.info("Saved Successfully : $linkResource")
+                    } else
+                        log.error("Error while saving : $linkResource")
+
+                    if (documentResource.save(flush: true)) {
+                        temp.addToResources(documentResource)
+                        temp.createdby.addToResources(documentResource)
+                        log.info("Saved Successfully : $documentResource")
+                    } else
+                        log.error("Error while saving : $documentResource")
                 }
             }
             temp.save(flush: true)
@@ -132,10 +151,14 @@ class BootStrap {
             for (Topic topic : topicList) {
                 if (topic.createdby != temp) {
                     if (!Subscription.findByUserAndTopic(temp, topic)) {
-                        Subscription subscription = new Subscription(temp, topic, Seriousness.SERIOUS)
-                        if (subscription.validate())
-                            subscription.save(flush: true)
-                        log.info("Subscription has errors while validating- ${subscription.hasErrors()}")
+                        Subscription subscription = new Subscription(user: temp, topic: topic, seriousness: Seriousness.SERIOUS)
+                        if (!subscription.save(flush: true)) {
+                            log.error("Error while saving : $subscription")
+                        } else {
+                            log.info("Saved Successfully : $subscription")
+                            temp.addToSubscriptions(subscription)
+                            topic.addToSubscriptions(subscription)
+                        }
                     }
                 }
             }
@@ -148,10 +171,16 @@ class BootStrap {
         subscriptionList.each {
             for (User user : userList) {
                 if (it.user == user && !user.topics.contains(it.topic)) {
-                    ReadingItem readingItem = new ReadingItem(user, true, it.topic.resources[0])
-                    if (readingItem.validate() && !user.readingItems.contains(readingItem))
-                        readingItem.save(flush: true)
-                    log.info("ReadingItem has errors while validating- ${readingItem.hasErrors()}")
+                    ReadingItem readingItem = new ReadingItem(user: user, isRead: true, resource: it.topic.resources[0])
+                    if (!user.readingItems.contains(readingItem)) {
+                        if (!readingItem.save(flush: true)) {
+                            log.error("Error while saving : $readingItem")
+                        } else {
+                            log.info("Saved Succesfully: $readingItem")
+                            user.addToReadingItems(readingItem)
+                            it.topic.resources[0].addToReadingItems(readingItem)
+                        }
+                    }
                 }
             }
         }
@@ -160,16 +189,16 @@ class BootStrap {
     void createResourceRatings() {
         Random random = new Random()
         List<ReadingItem> readingItemList = ReadingItem.findAll()
-        //println readingItemList.size()
+        println readingItemList.size()
         readingItemList.each {
             if (it.isRead) {
-                //println("about to create")
-                ResourceRating resourceRating = new ResourceRating(it.resource, it.user, random.nextInt(6))
-                if (resourceRating.validate()) {
-                    resourceRating.save(flush: true)
-                    //println("created")
-                }
-                log.info("ResourceRating has errors while validating- ${resourceRating.hasErrors()}")
+                ResourceRating resourceRating = new ResourceRating(resource: it.resource, createdby: it.user, score: random.nextInt(6))
+                if (!resourceRating.save(flush: true)) {
+                    log.error("Error while saving : $resourceRating")
+                    resourceRating.errors.allErrors.each { println it }
+                } else
+                    log.info("Saved Successfully : $resourceRating")
+                //Utility.saving(resourceRating)
             }
         }
     }

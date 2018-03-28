@@ -1,9 +1,9 @@
-package Resource
+package subscription
 
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 
-class ResourceSpec extends Specification implements DomainUnitTest<Resource> {
+class SubscriptionSpec extends Specification implements DomainUnitTest<Subscription> {
 
     def setup() {
     }

@@ -1,7 +1,7 @@
-package ReadingItem
+package readingItem
 
-import Resource.Resource
-import User.User
+import resource.Resource
+import user.User
 
 class ReadingItem {
     User user
@@ -10,11 +10,6 @@ class ReadingItem {
     Date lastUpdated
     Date dateCreated
 
-    ReadingItem(User user, Boolean isRead, Resource resource) {
-        this.user = user
-        this.isRead = isRead
-        this.resource = resource
-    }
     static belongsTo = [user:User, resource:Resource]
 
     static constraints = {

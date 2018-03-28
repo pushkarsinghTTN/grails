@@ -1,9 +1,9 @@
-package Resource
+package resource
 
-import ReadingItem.ReadingItem
-import ResourceRating.ResourceRating
-import Topic.Topic
-import User.User
+import readingItem.ReadingItem
+import resourceRating.ResourceRating
+import topic.Topic
+import user.User
 
 abstract class Resource {
 
@@ -12,12 +12,6 @@ abstract class Resource {
     Topic topic
     Date lastUpdated
     Date dateCreated
-
-    Resource(User createdby, String description, Topic topic) {
-        this.createdby = createdby
-        this.description = description
-        this.topic = topic
-    }
 
     static belongsTo = [createdby:User, topic:Topic]
     static hasMany = [ratings:ResourceRating, readingItems:ReadingItem]

@@ -1,7 +1,7 @@
-package Subscription
+package subscription
 
-import Topic.Topic
-import User.User
+import topic.Topic
+import user.User
 import enumeration.Seriousness
 
 class Subscription {
@@ -11,11 +11,6 @@ class Subscription {
     Date lastUpdated
     Date dateCreated
 
-    Subscription(User user, Topic topic, Seriousness seriousness) {
-        this.user = user
-        this.topic = topic
-        this.seriousness = seriousness
-    }
     static belongsTo = [user:User, topic:Topic]
 
     static constraints = {
