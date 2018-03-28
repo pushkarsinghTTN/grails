@@ -160,7 +160,7 @@ class BootStrap {
     void createResourceRatings() {
         Random random = new Random()
         List<ReadingItem> readingItemList = ReadingItem.findAll()
-        println readingItemList.size()
+        //println readingItemList.size()
         readingItemList.each {
             if (it.isRead) {
                 //println("about to create")

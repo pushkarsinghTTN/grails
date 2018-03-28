@@ -49,4 +49,10 @@ class User{
     static transients = ['name']
 
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
