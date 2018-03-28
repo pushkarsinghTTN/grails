@@ -4,6 +4,7 @@ import ReadingItem.ReadingItem
 import Resource.DocumentResource
 import Resource.LinkResource
 import Resource.Resource
+import ResourceRating.ResourceRating
 import Subscription.Subscription
 import Topic.Topic
 import User.User
@@ -41,10 +42,10 @@ class BootStrap {
 
         List<User> users = []
         User admin = new User("Pushkar", "Singh", "pushkar.singh", "pushkar180195", "pushkar.singh@tothenew.com", null, true, true);
-        admin.topics=[]
-        admin.subscriptions=[]
-        admin.readingItems=[]
-        admin.resources=[]
+        admin.topics = []
+        admin.subscriptions = []
+        admin.readingItems = []
+        admin.resources = []
         /*//Q1
         if(admin.validate()){
             admin.save()
@@ -59,10 +60,10 @@ class BootStrap {
         }
 
         User user = new User("Archit", "Chauhan", "archit.chauhan", "archit1234", "archit.chauhan@tothenew.com", null, false, true);
-        user.topics=[]
-        user.subscriptions=[]
-        user.readingItems=[]
-        user.resources=[]
+        user.topics = []
+        user.subscriptions = []
+        user.readingItems = []
+        user.resources = []
         /*//Q1
         if(user.validate()){
             user.save()
@@ -82,16 +83,15 @@ class BootStrap {
     void createTopic() {
         List<User> allusers = User.findAll()
         allusers.each {
-            if (it.topics == null) {
+            if (it.topics.size() == 0) {
                 User temp = it
-                temp.topics = []
                 (1..5).each {
                     Topic topic = new Topic("Topic ${it} by ${temp.username}", Visibility.PUBLIC, temp)
                     temp.topics.add(topic)
-                    topic.save(flush:true)
+                    topic.save(flush: true)
                     log.info("Topic has errors while validating- ${topic.hasErrors()}")
                 }
-                temp.save(flush:true)
+                temp.save(flush: true)
             }
         }
     }
@@ -102,39 +102,39 @@ class BootStrap {
         topicList.each {
 //            println("iterating  the topics list")
             Topic temp = it
-            temp.resources=[]
+            temp.resources = []
             if (!Resource.findByTopic(temp)) {
 //                println("inside if statement")
                 (1..2).each {
                     LinkResource linkResource = new LinkResource(temp.createdby, "This resource is created by ${temp.createdby.name} for topic- ${temp.name}", temp, "www.${temp.createdby.name}.com/${temp.name}/${it}")
                     DocumentResource documentResource = new DocumentResource(temp.createdby, "This resource is created by ${temp.createdby.name} for topic ${temp.name}", temp, "/${temp.createdby.name}/${temp.name}/${it}")
                     if (linkResource.validate()) {
-                        linkResource.save(flush:true)
+                        linkResource.save(flush: true)
                         temp.resources.add(linkResource)
                     }
                     log.info("LinkResource has errors while validating- ${linkResource.hasErrors()}")
                     if (documentResource.validate()) {
-                        documentResource.save(flush:true)
+                        documentResource.save(flush: true)
                         temp.resources.add(documentResource)
                     }
                     log.info("DocumentResource has errors while validating- ${documentResource.hasErrors()}")
                 }
             }
-            temp.save(flush:true)
+            temp.save(flush: true)
         }
     }
 
-    void subscribeTopics(){
-        List<User> userList= User.findAll()
-        List<Topic> topicList= Topic.findAll()
+    void subscribeTopics() {
+        List<User> userList = User.findAll()
+        List<Topic> topicList = Topic.findAll()
         userList.each {
-            User temp=it
-            for(Topic topic: topicList){
-                if(topic.createdby!=temp) {
+            User temp = it
+            for (Topic topic : topicList) {
+                if (topic.createdby != temp) {
                     if (!Subscription.findByUserAndTopic(temp, topic)) {
                         Subscription subscription = new Subscription(temp, topic, Seriousness.SERIOUS)
-                        if(subscription.validate())
-                        subscription.save(flush: true)
+                        if (subscription.validate())
+                            subscription.save(flush: true)
                         log.info("Subscription has errors while validating- ${subscription.hasErrors()}")
                     }
                 }
@@ -142,23 +142,36 @@ class BootStrap {
         }
     }
 
-    void createReadingItems(){
-        List<Subscription> subscriptionList= Subscription.findAll()
-        List<User> userList= User.findAll()
+    void createReadingItems() {
+        List<Subscription> subscriptionList = Subscription.findAll()
+        List<User> userList = User.findAll()
         subscriptionList.each {
-            for(User user: userList){
-                if(it.user==user && !user.topics.contains(it.topic)){
-                    ReadingItem readingItem = new ReadingItem(user,true,it.topic.resources[0])
-                    if(readingItem.validate() && !user.readingItems.contains(readingItem))
-                        readingItem.save()
+            for (User user : userList) {
+                if (it.user == user && !user.topics.contains(it.topic)) {
+                    ReadingItem readingItem = new ReadingItem(user, true, it.topic.resources[0])
+                    if (readingItem.validate() && !user.readingItems.contains(readingItem))
+                        readingItem.save(flush: true)
                     log.info("ReadingItem has errors while validating- ${readingItem.hasErrors()}")
                 }
             }
         }
     }
 
-    void createResourceRatings(){
-        
+    void createResourceRatings() {
+        Random random = new Random()
+        List<ReadingItem> readingItemList = ReadingItem.findAll()
+        println readingItemList.size()
+        readingItemList.each {
+            if (it.isRead) {
+                //println("about to create")
+                ResourceRating resourceRating = new ResourceRating(it.resource, it.user, random.nextInt(6))
+                if (resourceRating.validate()) {
+                    resourceRating.save(flush: true)
+                    //println("created")
+                }
+                log.info("ResourceRating has errors while validating- ${resourceRating.hasErrors()}")
+            }
+        }
     }
 
 }
