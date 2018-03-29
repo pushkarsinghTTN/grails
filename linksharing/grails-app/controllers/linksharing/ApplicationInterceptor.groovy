@@ -1,7 +1,6 @@
 package linksharing
 
 import grails.interceptors.Matcher
-import org.springframework.context.event.ApplicationEventMulticaster
 
 
 class ApplicationInterceptor {
@@ -12,6 +11,10 @@ class ApplicationInterceptor {
 
     boolean before() {
         log.info("INCOMING REQUEST: ${params.toString()}")
+        if (!session.user) {
+            redirect(action: 'login')
+            return false
+        }
         true
     }
 
