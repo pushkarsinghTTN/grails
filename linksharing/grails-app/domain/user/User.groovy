@@ -23,6 +23,7 @@ class User {
         this.name = this.firstname + " " + this.lastname
         return name
     }
+
     static hasMany = [topics: Topic, subscriptions: Subscription, readingItems: ReadingItem, resources: Resource]
 
     static constraints = {
@@ -34,7 +35,6 @@ class User {
         photo(nullable: true, sqlType: 'longBlob')
         admin(nullable: true)
         active(nullable: true)
-        //readingItems(default: [])
     }
 
     static transients = ['name']
