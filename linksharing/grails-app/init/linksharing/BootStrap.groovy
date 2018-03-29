@@ -24,11 +24,6 @@ class BootStrap {
         log.info("User is valid- ${users.last().validate()}")
         log.info("User has errors while validating- ${users.last().hasErrors()}")
 
-        //Q4
-        /*if (User.count() == 0) {
-            println("Creating Users")
-            List<User> users = createUsers()
-        }*/
 
         createTopic()
         createResources()
@@ -39,6 +34,7 @@ class BootStrap {
     }
     def destroy = {
     }
+
 
     List<User> createUsers() {
 
@@ -55,14 +51,6 @@ class BootStrap {
 
         admin.readingItems = []
 
-        /*//Q1
-        if(admin.validate()){
-            admin.save()
-            users.add(admin)
-            }
-        */
-
-        //Q2
         if (admin.validate()) {
             admin.save(flush: true, failOnError: true)
             users.add(admin)
@@ -79,14 +67,7 @@ class BootStrap {
         user.active = true
 
         user.readingItems = []
-        /*//Q1
-        if(user.validate()){
-            user.save()
-            users.add(user)
-            }
-        */
 
-        //Q2
         if (user.validate()) {
             user.save(flush: true, failOnError: true)
             users.add(user)
@@ -94,6 +75,7 @@ class BootStrap {
 
         return users
     }
+
 
     void createTopic() {
         List<User> allusers = User.findAll()
@@ -114,12 +96,13 @@ class BootStrap {
         }
     }
 
+
     void createResources() {
 
         List<Topic> topicList = Topic.findAll()
         topicList.each {
             Topic temp = it
-            //temp.resources = []
+
             if (!Resource.findByTopic(temp)) {
                 (1..2).each {
                     LinkResource linkResource = new LinkResource(createdby: temp.createdby, description: "This resource is created by ${temp.createdby.name} for topic ${temp.name}", topic: temp, url: "www.${temp.createdby.name}.com/${temp.name}/${it}")
@@ -143,6 +126,7 @@ class BootStrap {
         }
     }
 
+
     void subscribeTopics() {
         List<User> userList = User.findAll()
         List<Topic> topicList = Topic.findAll()
@@ -165,6 +149,7 @@ class BootStrap {
         }
     }
 
+
     void createReadingItems() {
         List<Subscription> subscriptionList = Subscription.findAll()
         List<User> userList = User.findAll()
@@ -186,6 +171,7 @@ class BootStrap {
         }
     }
 
+
     void createResourceRatings() {
         Random random = new Random()
         List<ReadingItem> readingItemList = ReadingItem.findAll()
@@ -198,7 +184,6 @@ class BootStrap {
                     resourceRating.errors.allErrors.each { println it }
                 } else
                     log.info("Saved Successfully : $resourceRating")
-                //Utility.saving(resourceRating)
             }
         }
     }
