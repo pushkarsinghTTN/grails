@@ -3,14 +3,14 @@ package login
 import user.User
 
 class LoginController {
-    static defaultAction = "loginhandler"
+    //static defaultAction = "loginhandler"
 
     def index() {
         if (session.user) {
             forward(controller: "User", action: "index")
         } else {
-            if (!flash.error)
-                redirect(action: "index")
+            flash.error = "PLEASE LOGIN BY PASSING PARAMETERS IN URL WHILE CALLING"
+            render(view: 'index')
         }
     }
 
@@ -19,25 +19,26 @@ class LoginController {
         if (user1) {
             if (user1.active) {
                 session.user = user1
+                forward(controller: "Login",action: "index")
             } else {
-                flash.error = "YOUR ACCOUNT IS NOT ACTIVE"
-            }
-            redirect(action: "index")
-        } else {
-            if (!username || !password) {
-                flash.error = "PLEASE LOGIN"
-                redirect(action: "loginhandler")
-            } else {
-                flash.error = "USER NOT FOUND"
-                redirect(action: "index")
+                flash.error= "YOUR ACCOUNT IS INACTIVE"
+                render(view: 'index')
             }
         }
-
+        else if (!username || !password) {
+            flash.error = "PLEASE LOGIN BY PASSING PARAMETERS IN URL WHILE CALLING"
+            render(view: 'index')
+        }
+        else {
+            flash.error = "USER NOT FOUND"
+            redirect(controller: 'Login', action: "index")
+        }
     }
 
-    def logout() {
-        session.invalidate()
-        flash.error = "USER LOGGED OUT"
-        forward(controller: "login", action: "index")
-    }
+def logout() {
+    session.invalidate()
+    flash.error = "USER LOGGED OUT"
+    render(view: 'index')
+}
+
 }

@@ -3,6 +3,6 @@ package user
 class UserController {
 
     def index() {
-       render("User Dashboard")
+        render("$session.user.username")
     }
 }
