@@ -7,7 +7,7 @@ class LoginController {
     def index() {
         HttpSession session=request.getSession()
         if(session.getAttribute("username")==null){
-            render(view:"user/index")
+            redirect(controller: "User",action:"index")
         }
         else{
             render("failure")
@@ -17,6 +17,7 @@ class LoginController {
     def loginhandler() { }
 
     def logout() {
-
+        HttpSession session=request.getSession()
+        session.invalidate()
     }
 }
