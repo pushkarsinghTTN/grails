@@ -49,6 +49,7 @@ class LoginController {
                 confirmpassword: params.confirmpassword)
         if (newuser.validate()) {
             newuser.save(flush: true, failOnError: true)
+            flash.message="SUCCESSFULLY REGISTERED"
             session.user = newuser
             forward(controller: 'User', action: 'index')
         }
