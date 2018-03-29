@@ -14,7 +14,9 @@ class LoginController {
         }
     }
 
-    def loginhandler() { }
+    def loginhandler(String username, String password) {
+        render("username- $username password- $password")
+    }
 
     def logout() {
         HttpSession session=request.getSession()
