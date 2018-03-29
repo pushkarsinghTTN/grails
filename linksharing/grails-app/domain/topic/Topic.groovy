@@ -22,6 +22,8 @@ class Topic {
         createdby(nullable: false)
     }
 
+    static mapping = {sort name:'asc'}
+
     def afterInsert(){
         Topic.withNewSession {
             this.subscriptions = []
