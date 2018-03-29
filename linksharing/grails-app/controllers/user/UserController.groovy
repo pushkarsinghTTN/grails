@@ -1,5 +1,6 @@
 package user
 
+import enumeration.Visibility
 import topic.Topic
 
 class UserController {
@@ -13,6 +14,12 @@ class UserController {
         if (!topic) {
             flash.error = "NO SUCH TOPIC"
             redirect(controller: 'login', action: 'index')
+        }
+        else{
+            if(topic.visibility==Visibility.PUBLIC){
+                render("SUCCESS")
+
+            }
         }
     }
 }
