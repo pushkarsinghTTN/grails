@@ -25,15 +25,19 @@ class LoginController {
             if (user1.active) {
                 session.user = user1
                 flash.error=null
+                flash.message="YOU LOGGED IN SUCCESSFULLY"
                 forward(controller: "Login", action: "index")
             } else {
                 flash.error = "YOUR ACCOUNT IS INACTIVE"
                 render(view: 'error')
             }
-        } else if (!username || !password) {
-            flash.error = "PLEASE LOGIN BY PASSING PARAMETERS IN URL WHILE CALLING"
-            render(view: 'error')
-        } else {
+        } else if (User.findByUsername(username)) {
+            flash.message="ENTER THE CORRECT PASSWORD AND TRY AGAIN"
+            render(view: 'message')
+        }  else if (!username || !password) {
+            flash.message="ENTER THE CORRECT CREDENTIALS AND TRY AGAIN"
+            render(view: 'message')
+        }else {
             flash.error = "USER NOT FOUND"
             redirect(controller: 'Login', action: "index")
         }
