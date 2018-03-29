@@ -68,8 +68,6 @@ class BootStrap {
         user.admin = false
         user.active = false
 
-        user.readingItems = []
-
         if (user.validate()) {
             user.save(flush: true, failOnError: true)
             users.add(user)

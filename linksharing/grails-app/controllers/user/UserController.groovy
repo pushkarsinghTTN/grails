@@ -7,7 +7,7 @@ import topic.Topic
 class UserController {
 
     def index() {
-        render("$session.user.username")
+        render("Welcome $session.user.username")
     }
 
     def show(Long id) {

@@ -28,7 +28,7 @@ class User {
     static hasMany = [topics: Topic, subscriptions: Subscription, readingItems: ReadingItem, resources: Resource]
 
     static constraints = {
-        email(email: true, nullable: false, blank: false)
+        email(email: true, nullable: false, blank: false,unique: true)
         password(nullable: false, blank: false, size: 5..15, validator: { password, obj ->
             def password2 = obj.confirmpassword
             password == password2 ? true : ['invalid.matchingpasswords']
