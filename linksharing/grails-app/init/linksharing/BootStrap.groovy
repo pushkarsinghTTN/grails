@@ -64,7 +64,7 @@ class BootStrap {
         user.email = "archit.chauhan@tothenew.com"
         user.photo = null
         user.admin = false
-        user.active = true
+        user.active = false
 
         user.readingItems = []
 
