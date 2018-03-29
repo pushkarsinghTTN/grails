@@ -6,9 +6,13 @@ class LoginController {
     //static defaultAction = "loginhandler"
 
     def index() {
-        if (session.user) {
+        if (session.user && !flash.error) {
             forward(controller: "User", action: "index")
-        } else {
+        }
+            else if(session.user && flash.error){
+            render(view: 'index')
+        }
+        else {
             flash.error = "PLEASE LOGIN BY PASSING PARAMETERS IN URL WHILE CALLING"
             render(view: 'index')
         }
