@@ -1,25 +1,29 @@
 package linksharing
 
+import user.User
+
 import javax.servlet.http.HttpSession
 
 class LoginController {
 
     def index() {
-        HttpSession session=request.getSession()
-        if(session.getAttribute("username")==null){
+        if(session.getAttribute("user")==null){
             forward(controller: "User",action:"index")
         }
         else{
-            render("failure")
+            render("Welcome- $session.user.username")
         }
     }
 
     def loginhandler(String username, String password) {
-        render("username- $username password- $password")
+        User user1=User.findByUsernameAndPassword(username,password)
+        if(user1.active){
+            session.user=user1
+            redirect(controller: "Login",action: "index")
+        }
     }
 
     def logout() {
-        HttpSession session=request.getSession()
         session.invalidate()
         forward(controller:"Login",action: "index")
     }
