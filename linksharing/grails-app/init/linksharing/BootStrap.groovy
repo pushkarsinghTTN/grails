@@ -44,6 +44,7 @@ class BootStrap {
         admin.lastname = "Singh"
         admin.username = "pushkar.singh"
         admin.password = "pushkar180195"
+        admin.confirmpassword = "pushkar180195"
         admin.email = "pushkar.singh@tothenew.com"
         admin.photo = null
         admin.admin = true
@@ -61,6 +62,7 @@ class BootStrap {
         user.lastname = "Chauhan"
         user.username = "archit.chauhan"
         user.password = "archit1234"
+        user.confirmpassword = "archit1234"
         user.email = "archit.chauhan@tothenew.com"
         user.photo = null
         user.admin = false
@@ -84,8 +86,8 @@ class BootStrap {
                 User temp = it
                 (1..5).each {
                     Topic topic = new Topic(name: "Topic ${it} by ${temp.username}", visibility: Visibility.PUBLIC, createdby: temp)
-                    if(it==1)
-                        topic.visibility=Visibility.PRIVATE
+                    if (it == 1)
+                        topic.visibility = Visibility.PRIVATE
                     if (!topic.save(flush: true))
                         log.error("Error while saving- $topic")
                     else {
