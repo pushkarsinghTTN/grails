@@ -1,9 +1,9 @@
-package Subscription
+package topic
 
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 
-class SubscriptionSpec extends Specification implements DomainUnitTest<Subscription> {
+class TopicSpec extends Specification implements DomainUnitTest<Topic> {
 
     def setup() {
     }

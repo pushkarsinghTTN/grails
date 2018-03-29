@@ -1,4 +1,4 @@
-package Resource
+package resource
 
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification

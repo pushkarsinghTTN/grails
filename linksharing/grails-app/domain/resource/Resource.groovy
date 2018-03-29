@@ -1,9 +1,9 @@
-package Resource
+package resource
 
-import ReadingItem.ReadingItem
-import ResourceRating.ResourceRating
-import Topic.Topic
-import User.User
+import readingItem.ReadingItem
+import resourceRating.ResourceRating
+import topic.Topic
+import user.User
 
 abstract class Resource {
 

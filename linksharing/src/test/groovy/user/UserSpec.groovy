@@ -1,9 +1,9 @@
-package ResourceRating
+package user
 
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 
-class ResourceRatingSpec extends Specification implements DomainUnitTest<ResourceRating> {
+class UserSpec extends Specification implements DomainUnitTest<User> {
 
     def setup() {
     }

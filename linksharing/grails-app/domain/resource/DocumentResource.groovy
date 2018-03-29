@@ -1,4 +1,7 @@
-package Resource
+package resource
+
+import topic.Topic
+import user.User
 
 class DocumentResource extends Resource {
     String filepath

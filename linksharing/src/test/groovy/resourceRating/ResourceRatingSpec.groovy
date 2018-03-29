@@ -1,9 +1,9 @@
-package ReadingItem
+package resourceRating
 
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 
-class ReadingItemSpec extends Specification implements DomainUnitTest<ReadingItem> {
+class ResourceRatingSpec extends Specification implements DomainUnitTest<ResourceRating> {
 
     def setup() {
     }

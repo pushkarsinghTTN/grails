@@ -1,11 +1,11 @@
-package User
+package user
 
-import ReadingItem.ReadingItem
-import Resource.Resource
-import Subscription.Subscription
-import Topic.Topic
+import readingItem.ReadingItem
+import resource.Resource
+import subscription.Subscription
+import topic.Topic
 
-class User{
+class User {
     String firstname
     String lastname
     String username
@@ -17,20 +17,10 @@ class User{
     String name
     Date lastUpdated
     Date dateCreated
+    List<ReadingItem> readingItems = []
 
-    User(String firstname, String lastname, String username, String password, String email, Byte photo, Boolean admin, Boolean active) {
-        this.firstname = firstname
-        this.lastname = lastname
-        this.username = username
-        this.password = password
-        this.email = email
-        this.photo = photo
-        this.admin = admin
-        this.active = active
-    }
-
-    String getName(){
-        name= this.firstname+this.lastname
+    String getName() {
+        this.name = this.firstname + " " + this.lastname
         return name
     }
     static hasMany = [topics: Topic, subscriptions: Subscription, readingItems: ReadingItem, resources: Resource]
@@ -41,12 +31,19 @@ class User{
         firstname(nullable: false, blank: false)
         lastname(nullable: false, blank: false)
         username(nullable: false, blank: false)
-        photo(nullable: true,sqlType:'longBlob')
+        photo(nullable: true, sqlType: 'longBlob')
         admin(nullable: true)
         active(nullable: true)
+        //readingItems(default: [])
     }
 
     static transients = ['name']
 
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
