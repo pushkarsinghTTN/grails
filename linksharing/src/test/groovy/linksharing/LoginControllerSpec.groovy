@@ -1,6 +1,7 @@
 package linksharing
 
 import grails.testing.web.controllers.ControllerUnitTest
+import login.LoginController
 import spock.lang.Specification
 
 class LoginControllerSpec extends Specification implements ControllerUnitTest<LoginController> {
