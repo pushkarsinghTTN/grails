@@ -2,29 +2,33 @@ package linksharing
 
 import user.User
 
-import javax.servlet.http.HttpSession
-
 class LoginController {
 
     def index() {
-        if (session.getAttribute("user") == null) {
+        if (session.user) {
             forward(controller: "User", action: "index")
         } else {
-            render("Welcome- $session.user.username")
+            if(!flash.error)
+                redirect(action:"index")
         }
     }
 
     def loginhandler(String username, String password) {
         User user1 = User.findByUsernameAndPassword(username, password)
-        if (user1.active) {
-            session.user = user1
-            redirect(controller: "Login", action: "index")
-        } else
-            render view:'error', model:[message: "YOUR ACCOUNT IS NOT ACTIVE"]
+        if(user1){
+            if (user1.active) {
+                session.user = user1
+            }
+            else {
+                flash.error = "YOUR ACCOUNT IS NOT ACTIVE"
+            }
+            redirect(action:"index")
+        }
+
     }
 
     def logout() {
         session.invalidate()
-        forward(controller: "Login", action: "index")
+        forward(controller: "login", action: "index")
     }
 }
