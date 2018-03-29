@@ -1,7 +1,5 @@
 package linksharing
 
-import grails.interceptors.Matcher
-
 
 class ApplicationInterceptor {
 
