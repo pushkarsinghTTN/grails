@@ -1,6 +1,7 @@
 package user
 
 import enumeration.Visibility
+import subscription.Subscription
 import topic.Topic
 
 class UserController {
@@ -18,7 +19,16 @@ class UserController {
         else{
             if(topic.visibility==Visibility.PUBLIC){
                 render("SUCCESS")
-
+            }
+            else{
+                Subscription subscription=Subscription.findByUserAndTopic(session.user,topic)
+                if(subscription){
+                    render("SUCCESS")
+                }
+                else{
+                    flash.error = "YOU ARE NOT SUBSCRIBED TO THIS TOPIC"
+                    redirect(controller: 'login', action: 'index')
+                }
             }
         }
     }

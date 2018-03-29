@@ -84,6 +84,8 @@ class BootStrap {
                 User temp = it
                 (1..5).each {
                     Topic topic = new Topic(name: "Topic ${it} by ${temp.username}", visibility: Visibility.PUBLIC, createdby: temp)
+                    if(it==1)
+                        topic.visibility=Visibility.PRIVATE
                     if (!topic.save(flush: true))
                         log.error("Error while saving- $topic")
                     else {
