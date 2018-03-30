@@ -42,8 +42,9 @@ class User {
         confirmpassword(nullable: false, blank: false)
     }
 
-    static transients = ['name', 'confirmpassword']
+    static mapping = {sort id: 'desc'}
 
+    static transients = ['name', 'confirmpassword']
 
     @Override
     public String toString() {
