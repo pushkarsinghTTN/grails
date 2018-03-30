@@ -1,5 +1,7 @@
 package topic
 
+import enumeration.Visibility
+
 class TopicController {
 
     def index() {}
@@ -10,12 +12,16 @@ class TopicController {
 
     }
 
-    def save(Topic topic, String seriousness){
-        if (!topic.save(flush: true))
+    def save(String topicname, String visibility){
+        Topic topic = new Topic(createdby: session.user,topicname: topicname,visibility: Visibility.convert(visibility))
+        if (!topic.save(flush: true)) {
             log.error("Error while saving- $topic")
-        else {
+            flash.error = "TOPIC NOT SAVED"
+        }else {
             log.info("Saved Successfully : $topic")
+            flash.message="TOPIC SAVED SUCCESSFULLY"
             session.user.addToTopics(topic)
+            render("SUCCESS")
         }
         session.save(flush: true)
 
