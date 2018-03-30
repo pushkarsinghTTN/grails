@@ -10,6 +10,17 @@ class TopicController {
 
     }
 
+    def save(Topic topic, String seriousness){
+        if (!topic.save(flush: true))
+            log.error("Error while saving- $topic")
+        else {
+            log.info("Saved Successfully : $topic")
+            session.user.addToTopics(topic)
+        }
+        session.save(flush: true)
+
+    }
+
     def delete(Integer topicid) {
         Topic proxytopic = Topic.load(topicid)
         proxytopic.discard()
