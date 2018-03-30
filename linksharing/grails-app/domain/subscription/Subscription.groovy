@@ -16,7 +16,7 @@ class Subscription {
     static constraints = {
         user(nullable: false)
         topic(nullable: false)
-        seriousness(nullable: false)
+        seriousness(nullable: false,default: Seriousness.SERIOUS)
 
     }
 }
