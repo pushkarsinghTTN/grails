@@ -1,6 +1,8 @@
 package login
 
+import resource.Resource
 import user.User
+import vo.ResourceVO
 
 class LoginController {
     static defaultAction = "home"
@@ -63,6 +65,11 @@ class LoginController {
 
     def home(){
         render(view: 'index')
+    }
+
+    def topPosts(){
+        List<ResourceVO> topPosts = Resource.getTopPost()
+        println("$topPosts.id + $topPosts.createdBy + $topPosts.topicName")
     }
 
 }

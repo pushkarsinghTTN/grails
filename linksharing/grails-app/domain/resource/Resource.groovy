@@ -6,10 +6,11 @@ import resourceRating.ResourceRating
 import topic.Topic
 import user.User
 import vo.RatingInfoVO
+import vo.ResourceVO
 
 abstract class Resource {
 
-    User createdby
+    User createdBy
     String description
     Topic topic
     Date lastUpdated
@@ -23,7 +24,7 @@ abstract class Resource {
 
     static transients = ['ratingInfo']
 
-    static belongsTo = [createdby: User, topic: Topic]
+    static belongsTo = [createdBy: User, topic: Topic]
     static hasMany = [ratings: ResourceRating, readingItems: ReadingItem]
 
     static constraints = {
@@ -72,5 +73,20 @@ abstract class Resource {
         ratingInfoVO.totalScore = totalScore()
         ratingInfoVO.averageScore = averageScore()
         return ratingInfoVO
+    }
+
+    static List<ResourceVO> getTopPost(){
+        List<ResourceVO> topPosts = ResourceRating.createCriteria().list(){
+            projections{
+                createAlias('resource', 'r')
+                groupProperty('r.id')
+                property('r.createdBy')
+                property('r.topic.name')
+                count('r.id', 'count')
+            }
+            order('count', 'desc')
+            maxResults(5)
+        }
+        return topPosts
     }
 }
