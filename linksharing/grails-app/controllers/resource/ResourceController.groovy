@@ -4,6 +4,7 @@ import co.ResourceSearchCo
 import enumeration.Visibility
 import topic.Topic
 import vo.RatingInfoVO
+import vo.TopicVO
 
 class ResourceController {
 
@@ -22,13 +23,16 @@ class ResourceController {
 
     def search(ResourceSearchCo resourceSearchCo) {
         if (resourceSearchCo.q) {
-            resourceSearchCo.visibility=Visibility.PUBLIC
+            resourceSearchCo.visibility = Visibility.PUBLIC
         }
     }
 
-    def show(Integer resourceId){
+    def show(Integer resourceId) {
         Resource resource = Resource.findById(resourceId)
         RatingInfoVO ratingInfoVO = resource.getResourceRatingInformation()
+        List<TopicVO> trendingTopics = Topic.getTrendingTopics()
         render("TOTAL VOTES- $ratingInfoVO.totalVotes + TOTAL SCORE- $ratingInfoVO.totalScore + AVERAGE SCORE- $ratingInfoVO.averageScore")
+        render("TRENDING TOPICS-" +
+                trendingTopics.each {println("$it.name + $it.visibility + $it.createdBy")})
     }
 }
