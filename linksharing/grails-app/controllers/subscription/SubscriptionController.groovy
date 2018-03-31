@@ -1,5 +1,6 @@
 package subscription
 
+import enumeration.Seriousness
 import topic.Topic
 
 class SubscriptionController {
@@ -24,7 +25,21 @@ class SubscriptionController {
 
     }
 
-    def update() {}
+    def update(Integer subscriptionId, String seriousness) {
+        seriousness=Seriousness.convert(seriousness)
+        Subscription subscription= Subscription.findByIdAndSeriousness(subscriptionId,seriousness)
+        if(subscription){
+            if(subscription.save(flush:true)){
+                log.info("Saved Successfully : $subscription")
+                render("SUCCESS")
+            }else
+            {
+                log.error("Error while Saving : $subscription")
+                render("FAILURE")
+            }
+        }else
+            render("SUBSCRIPTION NOT FOUND")
+    }
 
     def delete(Integer subscriptionId) {
         Subscription subscription = Subscription.findById(subscriptionId)
