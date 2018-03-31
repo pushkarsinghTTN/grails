@@ -1,13 +1,21 @@
 package topic
 
+import co.ResourceSearchCo
 import enumeration.Visibility
+import resource.Resource
 
 class TopicController {
 
     def index() {}
 
-    def show(Integer topicid) {
-        Topic topic = Topic.read(topicid)
+//    def show(Integer topicid) {
+//        Topic topic = Topic.read(topicid)
+//        render("CreatedBy- $topic.createdby.firstname Topicname- $topic.name")
+//
+//    }
+
+    def show(ResourceSearchCo resourceSearchCo){
+        Topic topic = Resource.search(resourceSearchCo)
         render("CreatedBy- $topic.createdby.firstname Topicname- $topic.name")
 
     }

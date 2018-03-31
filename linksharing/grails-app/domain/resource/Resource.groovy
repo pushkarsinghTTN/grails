@@ -1,5 +1,6 @@
 package resource
 
+import co.ResourceSearchCo
 import readingItem.ReadingItem
 import resourceRating.ResourceRating
 import topic.Topic
@@ -18,5 +19,12 @@ abstract class Resource {
 
     static constraints = {
         description(type:'text')
+    }
+
+    static namedQueries = {
+        search{ResourceSearchCo resourceSearchCo->
+            if(resourceSearchCo.topicId)
+                eq('topic.id',resourceSearchCo.topicId)
+        }
     }
 }
