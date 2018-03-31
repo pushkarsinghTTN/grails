@@ -64,5 +64,6 @@ class User {
                     ilike('resource.description',"%searchCO.q%")
             }
         }
+        return unReadItems
     }
 }
