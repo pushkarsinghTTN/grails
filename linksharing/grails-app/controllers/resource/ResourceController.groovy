@@ -1,5 +1,10 @@
 package resource
 
+import co.ResourceSearchCo
+import enumeration.Visibility
+import topic.Topic
+import vo.RatingInfoVO
+
 class ResourceController {
 
     def index() {}
@@ -15,4 +20,15 @@ class ResourceController {
         }
     }
 
+    def search(ResourceSearchCo resourceSearchCo) {
+        if (resourceSearchCo.q) {
+            resourceSearchCo.visibility=Visibility.PUBLIC
+        }
+    }
+
+    def show(Integer resourceId){
+        Resource resource = Resource.findById(resourceId)
+        RatingInfoVO ratingInfoVO = resource.getResourceRatingInformation()
+        render("TOTAL VOTES- $ratingInfoVO.totalVotes + TOTAL SCORE- $ratingInfoVO.totalScore + AVERAGE SCORE- $ratingInfoVO.averageScore")
+    }
 }
