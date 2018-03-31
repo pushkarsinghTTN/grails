@@ -1,5 +1,6 @@
 package user
 
+import co.SearchCO
 import readingItem.ReadingItem
 import resource.Resource
 import subscription.Subscription
@@ -52,5 +53,16 @@ class User {
         return "User{" +
                 "name='" + name + '\'' +
                 '}';
+    }
+
+    List<ReadingItem> getUnReadResources(SearchCO searchCO){
+
+            List<ReadingItem> unReadItems= ReadingItem.createCriteria().list(max:10,offset:0){
+                eq('isRead',false)
+                eq('user',this)
+                if(searchCO.q){
+                    ilike('resource.description',"%searchCO.q%")
+            }
+        }
     }
 }
