@@ -42,7 +42,8 @@ class User {
         confirmpassword(nullable: false, blank: false)
     }
 
-    static mapping = {sort id: 'desc'}
+    static mapping = {sort id: 'desc'
+        subscriptions lazy: false}
 
     static transients = ['name', 'confirmpassword']
 
