@@ -83,7 +83,7 @@ class BootStrap {
             if (!it.topics) {
                 User temp = it
                 (1..5).each {
-                    Topic topic = new Topic(name: "Topic ${it} by ${temp.username}", visibility: Visibility.PUBLIC, createdby: temp)
+                    Topic topic = new Topic(name: "Topic ${it} by ${temp.username}", visibility: Visibility.PUBLIC, createdBy: temp)
                     if (it == 1)
                         topic.visibility = Visibility.PRIVATE
                     if (!topic.save(flush: true))
@@ -107,18 +107,18 @@ class BootStrap {
 
             if (!Resource.findByTopic(temp)) {
                 (1..2).each {
-                    LinkResource linkResource = new LinkResource(createdby: temp.createdby, description: "This resource is created by ${temp.createdby.name} for topic ${temp.name}", topic: temp, url: "www.${temp.createdby.name}.com/${temp.name}/${it}")
-                    DocumentResource documentResource = new DocumentResource(createdby: temp.createdby, description: "This resource is created by ${temp.createdby.name} for topic ${temp.name}", topic: temp, filepath: "/${temp.createdby.name}/${temp.name}/${it}")
+                    LinkResource linkResource = new LinkResource(createdBy: temp.createdBy, description: "This resource is created by ${temp.createdBy.name} for topic ${temp.name}", topic: temp, url: "www.${temp.createdBy.name}.com/${temp.name}/${it}")
+                    DocumentResource documentResource = new DocumentResource(createdBy: temp.createdBy, description: "This resource is created by ${temp.createdBy.name} for topic ${temp.name}", topic: temp, filepath: "/${temp.createdBy.name}/${temp.name}/${it}")
                     if (linkResource.save(flush: true)) {
                         temp.addToResources(linkResource)
-                        temp.createdby.addToResources(linkResource)
+                        temp.createdBy.addToResources(linkResource)
                         log.info("Saved Successfully : $linkResource")
                     } else
                         log.error("Error while saving : $linkResource")
 
                     if (documentResource.save(flush: true)) {
                         temp.addToResources(documentResource)
-                        temp.createdby.addToResources(documentResource)
+                        temp.createdBy.addToResources(documentResource)
                         log.info("Saved Successfully : $documentResource")
                     } else
                         log.error("Error while saving : $documentResource")
@@ -135,7 +135,7 @@ class BootStrap {
         userList.each {
             User temp = it
             for (Topic topic : topicList) {
-                if (topic.createdby != temp) {
+                if (topic.createdBy != temp) {
                     if (!Subscription.findByUserAndTopic(temp, topic)) {
                         Subscription subscription = new Subscription(user: temp, topic: topic, seriousness: Seriousness.SERIOUS)
                         if (!subscription.save(flush: true)) {
@@ -180,7 +180,7 @@ class BootStrap {
         println readingItemList.size()
         readingItemList.each {
             if (it.isRead) {
-                ResourceRating resourceRating = new ResourceRating(resource: it.resource, createdby: it.user, score: random.nextInt(6))
+                ResourceRating resourceRating = new ResourceRating(resource: it.resource, createdBy: it.user, score: random.nextInt(6))
                 if (!resourceRating.save(flush: true)) {
                     log.error("Error while saving : $resourceRating")
                     resourceRating.errors.allErrors.each { println it }

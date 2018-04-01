@@ -5,17 +5,17 @@ import user.User
 
 class ResourceRating {
     Resource resource
-    User createdby
+    User createdBy
     Integer score
     Date lastUpdated
     Date dateCreated
 
-    static belongsTo = [resource: Resource,createdby:User]
+    static belongsTo = [resource: Resource,createdBy:User]
 
     static constraints = {
         resource(nullable: false)
         score(nullable: false, min: 0, max: 5)
-        createdby(nullable: false)
+        createdBy(nullable: false)
     }
 }
 

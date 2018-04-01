@@ -1,50 +1,40 @@
-<!doctype html>
-<html lang="en" class="no-js">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>
-        <g:layoutTitle default="Grails"/>
-    </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <asset:link rel="icon" href="favicon.ico" type="image/x-ico" />
 
-    <asset:stylesheet src="application.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <g:layoutHead/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<g:layoutHead/>
+
 </head>
+
 <body>
 
-    <div class="navbar navbar-default navbar-static-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+<nav class="navbar navbar-expand-lg navbar  ">
+
+    <a class="navbar-brand col-lg-2 " href="#"><h2 style="margin-top: 0px">Link Sharing</h2></a>
+
+    <p class="col-lg-7"></p>
+
+    <g:form class="navbar-form navbar-left" action="/action_page.php">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search...">
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit">
+                    <i class="glyphicon glyphicon-search"></i>
                 </button>
-                <a class="navbar-brand" href="/#">
-		    <asset:image src="grails.svg" alt="Grails Logo"/>
-                </a>
-            </div>
-            <div class="navbar-collapse collapse" aria-expanded="false" style="height: 0.8px;">
-                <ul class="nav navbar-nav navbar-right">
-                    <g:pageProperty name="page.nav" />
-                </ul>
             </div>
         </div>
-    </div>
+    </g:form>
+</nav>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <g:layoutBody/>
-
-    <div class="footer" role="contentinfo"></div>
-
-    <div id="spinner" class="spinner" style="display:none;">
-        <g:message code="spinner.alt" default="Loading&hellip;"/>
-    </div>
-
-    <asset:javascript src="application.js"/>
+<g:layoutBody/>
 
 </body>
+
 </html>

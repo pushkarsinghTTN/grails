@@ -204,11 +204,11 @@
                             <input class="form-control" type="password" name="confirmpassword" placeholder="confirm your  password">
 
                         </div>
-                        %{--<div class="form-group col-lg-10">--}%
-                            %{--<label for="photo">Photo </label>--}%
-                            %{--<input class="form-control" type="file" id="photo" >--}%
+                        <div class="form-group col-lg-10">
+                            <label>Photo </label>
+                            <input class="form-control" type="file" name="photo" >
 
-                        %{--</div>--}%
+                        </div>
 
                         <div  class="form-group col-lg-10">
                             <input type="submit" class="form-control btn-primary" style="background:#007efc">

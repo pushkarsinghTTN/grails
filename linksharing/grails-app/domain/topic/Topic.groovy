@@ -9,17 +9,17 @@ import enumeration.Visibility
 class Topic {
     String name
     Visibility visibility
-    User createdby
+    User createdBy
     Date lastUpdated
     Date dateCreated
 
-    static belongsTo = [createdby: User]
+    static belongsTo = [createdBy: User]
     static hasMany = [subscriptions: Subscription, resources: Resource]
 
     static constraints = {
-        name(unique: 'createdby', blank: false, nullable: false,)
+        name(unique: 'createdBy', blank: false, nullable: false,)
         visibility(nullable: false)
-        createdby(nullable: false)
+        createdBy(nullable: false)
     }
 
     static mapping = {
@@ -30,7 +30,7 @@ class Topic {
     def afterInsert() {
         Topic.withNewSession {
             this.subscriptions = []
-            Subscription subscription = new Subscription(user: createdby, topic: this, seriousness: Seriousness.VERYSERIOUS)
+            Subscription subscription = new Subscription(user: createdBy, topic: this, seriousness: Seriousness.VERYSERIOUS)
             if (subscription.validate()) {
                 this.subscriptions.add(subscription)
                 subscription.save(flush: true)

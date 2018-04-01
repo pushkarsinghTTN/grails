@@ -10,18 +10,18 @@ class TopicController {
 
 //    def show(Integer topicid) {
 //        Topic topic = Topic.read(topicid)
-//        render("CreatedBy- $topic.createdby.firstname Topicname- $topic.name")
+//        render("CreatedBy- $topic.createdBy.firstname Topicname- $topic.name")
 //
 //    }
 
     def show(ResourceSearchCo resourceSearchCo){
         Topic topic = Resource.search(resourceSearchCo)
-        render("CreatedBy- $topic.createdby.firstname Topicname- $topic.name")
+        render("CreatedBy- $topic.createdBy.firstname Topicname- $topic.name")
 
     }
 
     def save(String topicname, String visibility){
-        Topic topic = new Topic(createdby: session.user,name: topicname,visibility: Visibility.convert(visibility))
+        Topic topic = new Topic(createdBy: session.user,name: topicname,visibility: Visibility.convert(visibility))
         if (!topic.save(flush: true)) {
             log.error("Error while saving- $topic")
             flash.error = "TOPIC NOT SAVED"
