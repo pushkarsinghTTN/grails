@@ -2,11 +2,15 @@
 <html lang="en">
 <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    %{--<meta charset="UTF-8">--}%
+    %{--<meta name="viewport" content="width=device-width, initial-scale=1">--}%
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    %{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">--}%
+    %{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">--}%
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <asset:stylesheet src="bootstrap.css"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" >
 
 <g:layoutHead/>
 
@@ -31,7 +35,16 @@
         </div>
     </g:form>
 </nav>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<g:if test="${flash.error}">
+    <g:message message="${flash.error}"></g:message>
+
+</g:if>
+<g:if test="${flash.message}">
+    <g:message message="${flash.message}"></g:message>
+
+</g:if>
+%{--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>--}%
 
 <g:layoutBody/>
 
