@@ -7,7 +7,7 @@ class SubscriptionController {
 
     def index() {}
 
-    def save(Integer topicId){
+    def save(Long topicId){
         Topic topic=Topic.findById(topicId)
         Subscription subscription = new Subscription(createdby: session.user,topic: topic)
         if (!subscription.save(flush: true)) {
@@ -19,10 +19,9 @@ class SubscriptionController {
             session.user.addToSubscriptions(subscription)
             topic.addToSubscriptions(subscription)
             topic.save(flush:true)
+            session.user.save(flush: true)
             render("SUCCESS")
         }
-        session.user.save(flush: true)
-
     }
 
     def update(Integer subscriptionId, String seriousness) {

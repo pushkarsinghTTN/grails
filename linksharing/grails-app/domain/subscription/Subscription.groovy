@@ -23,5 +23,7 @@ class Subscription {
         topic fetch:'join'
         user fetch: 'join'
     }
+
+
 }
 

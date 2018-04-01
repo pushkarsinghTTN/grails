@@ -21,14 +21,13 @@ class LoginController {
     def loginhandler() {
         String username=params.loginusername
         String password=params.loginpassword
-        //render("$username $password")
         User user1 = User.findByUsernameAndPassword(username, password)
         if (user1) {
             if (user1.active) {
                 session.user = user1
-                flash.error=null
-                flash.message="YOU LOGGED IN SUCCESSFULLY"
-                forward(controller: "Login", action: "index")
+//                flash.error=null
+//                flash.message="YOU LOGGED IN SUCCESSFULLY"
+                forward(controller: "user", action: "index")
             } else {
                 flash.error = "YOUR ACCOUNT IS INACTIVE"
                 render(view: 'error')
@@ -60,12 +59,12 @@ class LoginController {
     def logout() {
         session.invalidate()
         flash.error = "USER LOGGED OUT"
-        render(view: 'error')
+        redirect(controller: 'login', action: 'index')
     }
 
-    def home(){
-        render(view: 'index')
-    }
+//    def home(){
+//        render(view: 'index')
+//    }
 
     def topPosts(){
         List<ResourceVO> topPosts = Resource.getTopPost()

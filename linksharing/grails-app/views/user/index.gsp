@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <title></title>
+    <meta name="layout" content="main">
 </head>
 
 <body>
+
 <nav class="navbar navbar">
     <div class="container-fluid">
         <div class="col-lg-4">
@@ -47,28 +43,28 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">create topic</h4>
+                                <h4 class="modal-title">Create Topic</h4>
                             </div>
 
                             <div class="modal-body">
-                                <form class="form-horizontal" action="#">
+                                <g:form class="form-horizontal" controller="" action="">
                                     <div class="form-group">
-                                        <label class="control-label col-sm-2" for="name1">name</label>
+                                        <label class="control-label col-sm-2">Name</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="name1" name="name1">
+                                            <input type="text" class="form-control"  name="topicName">
                                         </div>
                                     </div>
 
                                     <div class="dropdown">
-                                        <label class="control-label col-sm-2" for="visibility">visibility:</label>
+                                        <label class="control-label col-sm-2">Visibility:</label>
 
                                         <button class="btn btn-default dropdown-toggle" type="button"
-                                                data-toggle="dropdown" id="visibility">visibility
+                                                data-toggle="dropdown" name="visibility">Visibility
                                             <span class="caret"></span></button>
                                         <ul class="dropdown-menu">
-                                            <li><a href="#">private</a></li>
-                                            <li><a href="#">public</a></li>
+                                            <li><a href="#">Private</a></li>
+                                            <li><a href="#">Public</a></li>
 
                                         </ul>
                                     </div>
@@ -77,13 +73,13 @@
 
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-default">share</button>
+                                            <button type="submit" class="btn btn-default">Share</button>
                                             <button type="button" class="btn btn-default"
                                                     data-dismiss="modal">Close</button>
 
                                         </div>
                                     </div>
-                                </form>
+                                </g:form>
 
                             </div>
                             <!--<div class="modal-footer">-->
@@ -106,11 +102,11 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">send invitation</h4>
+                                <h4 class="modal-title">Send invitation</h4>
                             </div>
 
                             <div class="modal-body">
-                                <form class="form-horizontal" action="#">
+                                <g:form class="form-horizontal" action="#">
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="email1">email</label>
 
@@ -142,7 +138,7 @@
 
                                         </div>
                                     </div>
-                                </form>
+                                </g:form>
 
                             </div>
 
@@ -163,7 +159,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">create resource</h4>
+                                <h4 class="modal-title">Create Resource</h4>
                             </div>
 
                             <div class="modal-body">
@@ -201,7 +197,7 @@
 
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-default">share</button>
+                                            <button type="submit" class="btn btn-default">Share</button>
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close
                                             </button>
 
@@ -234,33 +230,33 @@
                             </div>
 
                             <div class="modal-body">
-                                <form class="form-horizontal" action="#">
+                                <g:form class="form-horizontal" controller="#" action="#">
                                     <div class="form-group">
-                                        <label class="control-label col-sm-2" for="document">document</label>
+                                        <label class="control-label col-sm-2">Document</label>
 
                                         <div class="col-sm-10">
-                                            <input type="file" class="form-control" id="document" name="document">
+                                            <input type="file" class="form-control" name="document">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label col-sm-2" for="descrip1">description:</label>
+                                        <label class="control-label col-sm-2">Description:</label>
 
                                         <div class="col-sm-10">
-                                            <textarea class="form-control" rows="5" id="descrip1"></textarea>
+                                            <textarea class="form-control" rows="5" name"description"></textarea>
                                         </div>
                                     </div>
 
                                     <div class="dropdown">
-                                        <label class="control-label col-sm-2" for="topic1">topic:</label>
+                                        <label class="control-label col-sm-2">Topic:</label>
 
                                         <button class="btn btn-default dropdown-toggle" type="button"
-                                                data-toggle="dropdown" id="topic1">topic
+                                                data-toggle="dropdown" name=topic">Topic
                                             <span class="caret"></span></button>
                                         <ul class="dropdown-menu">
-                                            <li><a href="#">topictype1</a></li>
-                                            <li><a href="#">topictype2</a></li>
-                                            <li><a href="#">topictype3</a></li>
+                                            <li><a href="#">Topictype1</a></li>
+                                            <li><a href="#">Topictype2</a></li>
+                                            <li><a href="#">Topictype3</a></li>
 
                                         </ul>
                                     </div>
@@ -269,13 +265,13 @@
                                         <br>
 
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-default">share</button>
+                                            <button type="submit" class="btn btn-default">Share</button>
                                             <button type="button" class="btn btn-default"
                                                     data-dismiss="modal">Close</button>
 
                                         </div>
                                     </div>
-                                </form>
+                                </g:form>
                             </div>
 
                         </div>
@@ -288,7 +284,7 @@
                 <li class="dropdown  col-lg-3" style="padding: 0px">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-user"
                                                                                   style="font-size:24px"></i>
-                        <%=$session.user.firstname + $session.user.lastname%>
+                        <%="${session.user.firstname} ${session.user.lastname}"%>
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">Profile</a></li>
@@ -317,8 +313,8 @@
 
                         <div class="col-sm-9">
 
-                            <p><%=$session.user.firstname + $session.user.lastname%>><br>
-                                <small class="text-muted"><% out << "@" + $session.user.username %></small>
+                            <p><%="${session.user.firstname} + ${session.user.lastname}"%>><br>
+                                <small class="text-muted"><%="@ ${session.user.username} "%></small>
                             </p>
 
                             <div class="row">
@@ -630,5 +626,7 @@
     </div>
 </div>
 
+
 </body>
+
 </html>

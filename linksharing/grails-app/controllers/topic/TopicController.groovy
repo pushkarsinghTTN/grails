@@ -3,6 +3,7 @@ package topic
 import co.ResourceSearchCo
 import enumeration.Visibility
 import resource.Resource
+import user.User
 
 class TopicController {
 
@@ -17,11 +18,13 @@ class TopicController {
     def show(ResourceSearchCo resourceSearchCo){
         Topic topic = Resource.search(resourceSearchCo)
         render("CreatedBy- $topic.createdBy.firstname Topicname- $topic.name")
+        User user = User.read(session.user.id)
+        render(user.topics)
 
     }
 
-    def save(String topicname, String visibility){
-        Topic topic = new Topic(createdBy: session.user,name: topicname,visibility: Visibility.convert(visibility))
+    def save(/*String topicname, String visibility*/){
+        Topic topic = new Topic(createdBy: session.user,name: params.topicName,visibility: Visibility.convert(params.visibility))
         if (!topic.save(flush: true)) {
             log.error("Error while saving- $topic")
             flash.error = "TOPIC NOT SAVED"

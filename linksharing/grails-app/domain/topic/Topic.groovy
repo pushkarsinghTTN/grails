@@ -65,4 +65,9 @@ class Topic {
 
         return trendingTopics
     }
+
+    List<User> getSubscribedUsers(){
+        List<User> subscribedUsers=this.subscriptions.user.toList(){ maxResults(5) }
+        return subscribedUsers
+    }
 }

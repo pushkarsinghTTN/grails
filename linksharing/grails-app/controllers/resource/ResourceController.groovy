@@ -30,9 +30,13 @@ class ResourceController {
     def show(Integer resourceId) {
         Resource resource = Resource.findById(resourceId)
         RatingInfoVO ratingInfoVO = resource.getResourceRatingInformation()
-        List<TopicVO> trendingTopics = Topic.getTrendingTopics()
         render("TOTAL VOTES- $ratingInfoVO.totalVotes + TOTAL SCORE- $ratingInfoVO.totalScore + AVERAGE SCORE- $ratingInfoVO.averageScore")
+    }
+
+    def findTrendingTopics(){
+        List<TopicVO> trendingTopics = Topic.getTrendingTopics()
         render("TRENDING TOPICS-" +
                 trendingTopics.each {println("$it.name + $it.visibility + $it.createdBy")})
     }
+
 }
