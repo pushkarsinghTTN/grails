@@ -5,22 +5,29 @@ import user.User
 import vo.ResourceVO
 
 class LoginController {
-    static defaultAction = "home"
+
+    LoginService loginService
 
     def index() {
-        if (session.user && !flash.error) {
+        if (session.user) {
+            log.info("REDIRECTING TO USER INDEX")
             forward(controller: "User", action: "index")
-        } else if (session.user && flash.error) {
-            render(view: 'error')
-        } else {
-            flash.error = "PLEASE LOGIN BY PASSING PARAMETERS IN URL WHILE CALLING"
-            render(view: 'error')
+        }
+// else if (session.user && flash.error) {
+//            render(view: 'error')
+//        } else {
+//            flash.error = "PLEASE LOGIN BY PASSING PARAMETERS IN URL WHILE CALLING"
+//            render(view: 'error')
+//        }
+        else {
+            log.info("NO SESSION USER FOUND")
+            render(view: 'index')
         }
     }
 
     def loginhandler() {
-        String username=params.loginusername
-        String password=params.loginpassword
+        String username = params.loginusername
+        String password = params.loginpassword
         User user1 = User.findByUsernameAndPassword(username, password)
         if (user1) {
             if (user1.active) {
@@ -33,26 +40,25 @@ class LoginController {
                 render(view: 'error')
             }
         } else if (User.findByUsername(username)) {
-            flash.message="ENTER THE CORRECT PASSWORD AND TRY AGAIN"
+            flash.message = "ENTER THE CORRECT PASSWORD AND TRY AGAIN"
             render(view: 'message')
-        }  else if (!username || !password) {
-            flash.message="ENTER THE CORRECT CREDENTIALS AND TRY AGAIN"
+        } else if (!username || !password) {
+            flash.message = "ENTER THE CORRECT CREDENTIALS AND TRY AGAIN"
             render(view: 'message')
-        }else {
+        } else {
             flash.error = "USER NOT FOUND"
             redirect(controller: 'Login', action: "index")
         }
     }
 
     def register() {
-        User newuser = new User(firstname: params.firstname, lastname: params.lastname,
-                email: params.email, username: params.username, password: params.password,
-                confirmpassword: params.confirmpassword)
-        if (newuser.validate()) {
-            newuser.save(flush: true, failOnError: true)
-            flash.message="SUCCESSFULLY REGISTERED"
-            session.user = newuser
+        User user = loginService.registerUser(params)
+        if (user) {
+            flash.message = "SUCCESSFULLY REGISTERED"
+            session.user = user
             forward(controller: 'User', action: 'index')
+        } else {
+            flash.error = "Unable to register user"
         }
     }
 
@@ -62,11 +68,16 @@ class LoginController {
         redirect(controller: 'login', action: 'index')
     }
 
-//    def home(){
-//        render(view: 'index')
-//    }
+    def forgotPassword() {
+        User user= User.findByUsername(params.username)
+        if(user){
+            user.password=params.newPassword
+            user.save(flush:true)
+        }
 
-    def topPosts(){
+    }
+
+    def topPosts() {
         List<ResourceVO> topPosts = Resource.getTopPost()
         println("$topPosts.id + $topPosts.createdBy + $topPosts.topicName")
     }

@@ -76,18 +76,24 @@ abstract class Resource {
     }
 
     static List<ResourceVO> getTopPost(){
-        List<ResourceVO> topPosts = ResourceRating.createCriteria().list(){
+        //todo correct query
+        List<ResourceVO> topPosts = ResourceRating.createCriteria().list{
             projections{
                 createAlias('resource', 'r')
                 groupProperty('r.id')
                 property('r.createdBy')
-                property('r.topic.name')
+                property('r.topic')
                 count('r.id', 'count')
             }
             order('count', 'desc')
             maxResults(5)
         }
-        return topPosts
+        List result = []
+        topPosts.each{
+            result.add(new ResourceVO(id: it[0],createdBy: it[1],topic: it[2],count: it[3]))
+        }
+        println("Returning top posts : " + result)
+        return result
     }
 
     static List<Resource> getRecentShares(){
@@ -97,6 +103,11 @@ abstract class Resource {
             maxResults(2)
 
         }
+        println("about to return")
         return recentShares
+    }
+
+    static findLinkOrDocument(Resource resource){
+
     }
 }

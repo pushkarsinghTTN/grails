@@ -23,8 +23,8 @@ class TopicController {
 
     }
 
-    def save(/*String topicname, String visibility*/){
-        Topic topic = new Topic(createdBy: session.user,name: params.topicName,visibility: Visibility.convert(params.visibility))
+    def save(){
+        Topic topic = new Topic(createdBy: session.user,name: params.topicName,visibility: params.topicVisibility)
         if (!topic.save(flush: true)) {
             log.error("Error while saving- $topic")
             flash.error = "TOPIC NOT SAVED"

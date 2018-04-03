@@ -67,7 +67,7 @@ class Topic {
     }
 
     List<User> getSubscribedUsers(){
-        List<User> subscribedUsers=this.subscriptions.user.toList(){ maxResults(5) }
+        List<User> subscribedUsers=this.subscriptions.user.toList()
         return subscribedUsers
     }
 }

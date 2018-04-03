@@ -11,13 +11,13 @@ import user.User
 import enumeration.Seriousness
 import enumeration.Visibility
 import util.Utility
+import vo.ResourceVO
 
 class BootStrap {
 
     def init = { servletContext ->
-        println "BootStrap."
         List<User> users = createUsers()
-        println "users = $users"
+
         log.info("Admin is valid- ${users.first().validate()}")
         log.info("Admin has errors while validating- ${users.first().hasErrors()}")
 
@@ -30,6 +30,14 @@ class BootStrap {
         subscribeTopics()
         createReadingItems()
         createResourceRatings()
+
+        println("getting recent shares")
+        List<Resource> recentShares= Resource.getRecentShares()
+        recentShares.each {print it}
+
+        println("getting top posts")
+        List<ResourceVO> topPosts= Resource.getTopPost()
+        topPosts.each {print it}
 
     }
     def destroy = {

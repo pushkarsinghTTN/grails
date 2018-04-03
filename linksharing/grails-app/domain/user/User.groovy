@@ -21,6 +21,7 @@ class User {
     Date dateCreated
     List<ReadingItem> readingItems = []
 
+
     String getName() {
         this.name = this.firstname + " " + this.lastname
         return name
@@ -29,7 +30,7 @@ class User {
     static hasMany = [topics: Topic, subscriptions: Subscription, readingItems: ReadingItem, resources: Resource]
 
     static constraints = {
-        email(email: true, nullable: false, blank: false,unique: true)
+        email(email: true, nullable: false, blank: false, unique: true)
         password(nullable: false, blank: false, size: 5..15, validator: { password, obj ->
             def password2 = obj.confirmpassword
             password == password2 ? true : ['invalid.matchingpasswords']
@@ -43,8 +44,10 @@ class User {
         confirmpassword(nullable: false, blank: false)
     }
 
-    static mapping = {sort id: 'desc'
-        subscriptions lazy: false}
+    static mapping = {
+        sort id: 'desc'
+        subscriptions lazy: false
+    }
 
     static transients = ['name', 'confirmpassword']
 
@@ -55,15 +58,36 @@ class User {
                 '}';
     }
 
-    List<ReadingItem> getUnReadResources(SearchCO searchCO){
+    List<ReadingItem> getUnReadResources(SearchCO searchCO) {
 
-            List<ReadingItem> unReadItems= ReadingItem.createCriteria().list(max:10,offset:0){
-                eq('isRead',false)
-                eq('user',this)
-                if(searchCO.q){
-                    ilike('resource.description',"%searchCO.q%")
+        List<ReadingItem> unReadItems = ReadingItem.createCriteria().list(max: 10, offset: 0) {
+            eq('isRead', false)
+            eq('user', this)
+            if (searchCO.q) {
+                ilike('resource.description', "%searchCO.q%")
             }
         }
         return unReadItems
     }
+
+    List<String> getSubscribedTopic() {
+        List<String> subscribedTopics = []
+        this.subscriptions.each { subscribedTopics.add(it.topic.name) }
+        return subscribedTopics
+    }
+
+    Integer getSubscriptionCount() {
+        if (subscriptions)
+            return this.subscriptions.size()
+        else
+            return 0
+    }
+
+    Integer getTopicCount() {
+        if (topics)
+            return this.topics.size()
+        else
+            return 0
+    }
+
 }
