@@ -26,8 +26,9 @@ class SubscriptionController {
 
     def update(Integer subscriptionId, String seriousness) {
         seriousness=Seriousness.convert(seriousness)
-        Subscription subscription= Subscription.findByIdAndSeriousness(subscriptionId,seriousness)
+        Subscription subscription= Subscription.findById(subscriptionId)
         if(subscription){
+            subscription.seriousness=seriousness
             if(subscription.save(flush:true)){
                 log.info("Saved Successfully : $subscription")
                 render("SUCCESS")
