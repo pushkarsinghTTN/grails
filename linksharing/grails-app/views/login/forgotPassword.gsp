@@ -35,13 +35,17 @@
                 <div class="form-group col-lg-10">
                     <label>Confirm New Password</label>
                     <input class="form-control" type="password" name="confirmNewPassword"
-                           placeholder="confirm your new password">
+                           placeholder="confirm your new password" required>
 
                 </div>
 
                 <div class="form-group col-lg-10">
                     <input type="submit" class="form-control btn-primary" style="background:#007efc">
                 </div>
+
+                <g:if test="${flash.error}">
+                    ${flash.error}
+                </g:if>
 
             </g:form>
 

@@ -32,8 +32,12 @@ class User {
     static constraints = {
         email(email: true, nullable: false, blank: false, unique: true)
         password(nullable: false, blank: false, size: 5..15, validator: { password, obj ->
-            def password2 = obj.confirmpassword
-            password == password2 ? true : ['invalid.matchingpasswords']
+            println "runnig password validation > " + obj.confirmpassword
+            if (obj.confirmpassword) {
+                println "inside validation"
+                def password2 = obj.confirmpassword
+                return (password == password2) ? true : ['invalid.matchingpasswords']
+            }
         })
         firstname(nullable: false, blank: false)
         lastname(nullable: false, blank: false)
@@ -41,7 +45,6 @@ class User {
         photo(nullable: true, sqlType: 'longBlob')
         admin(nullable: true)
         active(nullable: true)
-        confirmpassword(nullable: false, blank: false)
     }
 
     static mapping = {
@@ -72,7 +75,7 @@ class User {
 
     List<Topic> getSubscribedTopic() {
         List<Topic> subscribedTopics = []
-        if(this.subscriptions){
+        if (this.subscriptions) {
             this.subscriptions.each {
                 if (it.topic.createdBy != it.user)
                     subscribedTopics.add(it.topic)
@@ -93,6 +96,16 @@ class User {
             return this.topics.size()
         else
             return 0
+    }
+
+    List<String> getUserTopics() {
+        List<String> userTopics = []
+        if (this.topics) {
+            this.topics.each {
+                userTopics.add(it.name)
+            }
+        }
+        return userTopics
     }
 
 }

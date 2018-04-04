@@ -66,7 +66,7 @@ dependencies {
 }
 
 bootRun {
-    jvmArgs=['-Dspring.output.ansi.enabled=always',"-Xdebug", "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005"]
+    jvmArgs=['-Dspring.output.ansi.enabled=always']
     addResources = true
     String springProfilesActive = 'spring.profiles.active'
     systemProperty springProfilesActive, System.getProperty(springProfilesActive)

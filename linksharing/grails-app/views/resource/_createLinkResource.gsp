@@ -27,18 +27,20 @@
                         </div>
                     </div>
 
-                    <div class="dropdown">
-                        <label class="control-label col-sm-2">Topic:</label>
+                    <div class="dropdown col-lg-12" >
+                        <div class="col-lg-2">
+                            <label clcass="control-label ">Topic:</label>
 
-                        <button class="btn btn-default dropdown-toggle" type="button"
-                                data-toggle="dropdown" name="linkResourceTopic">Topic
-                            <span class="caret"></span></button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">topictype1</a></li>
-                            <li><a href="#">topictype2</a></li>
-                            <li><a href="#">topictype3</a></li>
+                        </div>
+                        <div class="col-lg-10">
+                            <select class="form-control " name="topicName">
+                                <g:each in="${session.user.getUserTopics()}" var="topicList">
+                                <option value="${topicList}">${topicList}</option>
+                                </g:each>
+                            </select>
+                        </div>
 
-                        </ul>
+
                     </div>
                     <br>
 

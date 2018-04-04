@@ -72,12 +72,18 @@ class LoginController {
         println ">>>>>>>>>>${params.username}"
         println ">>>>>>>>>>${params.newPassword}"
         User user= User.findByUsername(params.username)
-        if(user){
-            user.password=params.newPassword
-            user.confirmpassword=params.confirmNewPassword
-            user.save(flush:true)
-            session.user=user
-            forward(controller: 'User', action: 'index')
+        if(user) {
+            user.password = params.newPassword
+            user.confirmpassword = params.confirmNewPassword
+            if (user.save(flush: true)) {
+                session.user = user
+                forward(controller: 'User', action: 'index')
+            }
+            else{
+
+                flash.error =  user.errors
+                render(view: 'forgotPassword')
+            }
         }
 
     }

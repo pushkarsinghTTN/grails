@@ -32,4 +32,8 @@ class UserController {
             }
         }
     }
+
+    def showUserTopics(){
+        render(view: '/topic/usertopics')
+    }
 }

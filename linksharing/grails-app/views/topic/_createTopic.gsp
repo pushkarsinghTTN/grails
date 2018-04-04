@@ -19,7 +19,7 @@
 
                     <div class="dropdown col-lg-12" >
                         <div class="col-lg-2">
-                            <label class="control-label " >Visibility:</label>
+                            <label class="control-label ">Visibility:</label>
 
                         </div>
                         <div class="col-lg-10">

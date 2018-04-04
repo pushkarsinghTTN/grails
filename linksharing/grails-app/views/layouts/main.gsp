@@ -77,10 +77,10 @@
                             ${session.user.getName()}
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Profile</a></li>
+                            <li><g:link controller="user" action="index">Profile</g:link></li>
                             <li><a href="#">Users</a></li>
-                            <li><a href="#">Topic</a></li>
-                            <li><a href="#">Post</a></li>
+                            <li><g:link controller="user" action="showUserTopics">Topic</g:link></li>
+                            <li><g:link controller="resource" action="showUserPosts">Post</g:link></li>
                             <li><g:link controller="login" action="logout">Logout</g:link></li>
                         </ul>
                     </li>

@@ -1,10 +1,5 @@
 package topic
 
-import co.ResourceSearchCo
-import enumeration.Visibility
-import resource.Resource
-import user.User
-
 class TopicController {
 
     def index() {}
@@ -15,26 +10,29 @@ class TopicController {
 //
 //    }
 
-    def show(ResourceSearchCo resourceSearchCo){
-        Topic topic = Resource.search(resourceSearchCo)
-        render("CreatedBy- $topic.createdBy.firstname Topicname- $topic.name")
-        User user = User.read(session.user.id)
-        render(user.topics)
-
+//    def show(ResourceSearchCo resourceSearchCo){
+//        Topic topic = Resource.search(resourceSearchCo)
+//        render("CreatedBy- $topic.createdBy.firstname Topicname- $topic.name")
+//        User user = User.read(session.user.id)
+//        render(user.topics)
+//
+//    }
+    def show(){
+        render(view: 'topicCompleteInfo')
     }
 
     def save(){
-        Topic topic = new Topic(createdBy: session.user,name: params.topicName,visibility: params.topicVisibility)
-        if (!topic.save(flush: true)) {
-            log.error("Error while saving- $topic")
-            topic.errors.allErrors.each {println it}
+        Topic newtopic = new Topic(createdBy: session.user,name: params.topicName,visibility: params.topicVisibility)
+        if (!newtopic.save(flush: true)) {
+            log.error("Error while saving- $newtopic")
+            newtopic.errors.allErrors.each {println it}
             flash.error = "TOPIC NOT SAVED"
         }else {
-            log.info("Saved Successfully : $topic")
+            log.info("Saved Successfully : $newtopic")
             flash.message="TOPIC SAVED SUCCESSFULLY"
-            session.user.addToTopics(topic)
+            //session.user.addToTopics(newtopic)
             flash.message="SUCCESSFULLY SAVED"
-            session.user.save(flush: true)
+            //session.user.save(flush: true)
            }
         redirect(controller:'user',action:'index')
 

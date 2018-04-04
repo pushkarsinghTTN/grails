@@ -31,11 +31,12 @@ class Topic {
         Topic.withNewSession {
             this.subscriptions = []
             Subscription subscription = new Subscription(user: createdBy, topic: this, seriousness: Seriousness.VERYSERIOUS)
-            if (subscription.validate()) {
-                this.subscriptions.add(subscription)
-                subscription.save(flush: true)
-            }
-            log.info("Subscription has errors while validating- ${subscription.hasErrors()}")
+            if (subscription.save(flush: true)) {
+                log.info("Saved Successfully- $subscription")
+//                this.addToSubscriptions(subscription)
+//                this.createdBy.addToSubscriptions(subscription)
+            }else
+            log.error("Subscription has errors while validating- $subscription")
         }
     }
 
