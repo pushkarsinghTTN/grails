@@ -76,7 +76,6 @@ abstract class Resource {
     }
 
     static List<ResourceVO> getTopPost(){
-        //todo correct query
         List<ResourceVO> topPosts = ResourceRating.createCriteria().list{
             projections{
                 createAlias('resource', 'r')

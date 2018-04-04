@@ -24,7 +24,6 @@
                            placeholder="enter your username">
                 </div>
 
-                <div class="col-lg-2"></div>
 
                 <div class="form-group col-lg-10">
                     <label>Enter New Password</label>
@@ -33,7 +32,12 @@
 
                 </div>
 
-                <div class="col-lg-12"></div>
+                <div class="form-group col-lg-10">
+                    <label>Confirm New Password</label>
+                    <input class="form-control" type="password" name="confirmNewPassword"
+                           placeholder="confirm your new password">
+
+                </div>
 
                 <div class="form-group col-lg-10">
                     <input type="submit" class="form-control btn-primary" style="background:#007efc">

@@ -69,10 +69,15 @@ class LoginController {
     }
 
     def forgotPassword() {
+        println ">>>>>>>>>>${params.username}"
+        println ">>>>>>>>>>${params.newPassword}"
         User user= User.findByUsername(params.username)
         if(user){
             user.password=params.newPassword
+            user.confirmpassword=params.confirmNewPassword
             user.save(flush:true)
+            session.user=user
+            forward(controller: 'User', action: 'index')
         }
 
     }

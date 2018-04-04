@@ -27,14 +27,18 @@ class TopicController {
         Topic topic = new Topic(createdBy: session.user,name: params.topicName,visibility: params.topicVisibility)
         if (!topic.save(flush: true)) {
             log.error("Error while saving- $topic")
+            topic.errors.allErrors.each {println it}
             flash.error = "TOPIC NOT SAVED"
         }else {
             log.info("Saved Successfully : $topic")
             flash.message="TOPIC SAVED SUCCESSFULLY"
             session.user.addToTopics(topic)
-            render("SUCCESS")
-        }
-        session.user.save(flush: true)
+            flash.message="SUCCESSFULLY SAVED"
+            session.user.save(flush: true)
+           }
+        redirect(controller:'user',action:'index')
+
+
 
     }
 

@@ -70,14 +70,19 @@ class User {
         return unReadItems
     }
 
-    List<String> getSubscribedTopic() {
-        List<String> subscribedTopics = []
-        this.subscriptions.each { subscribedTopics.add(it.topic.name) }
+    List<Topic> getSubscribedTopic() {
+        List<Topic> subscribedTopics = []
+        if(this.subscriptions){
+            this.subscriptions.each {
+                if (it.topic.createdBy != it.user)
+                    subscribedTopics.add(it.topic)
+            }
+        }
         return subscribedTopics
     }
 
     Integer getSubscriptionCount() {
-        if (subscriptions)
+        if (this.subscriptions)
             return this.subscriptions.size()
         else
             return 0

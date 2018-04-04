@@ -70,4 +70,11 @@ class Topic {
         List<User> subscribedUsers=this.subscriptions.user.toList()
         return subscribedUsers
     }
+
+    Integer getSubscriptionCount(){
+        if(subscriptions)
+            return subscriptions.size()
+        else
+            return 0
+    }
 }

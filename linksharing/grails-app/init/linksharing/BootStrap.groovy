@@ -31,6 +31,9 @@ class BootStrap {
         createReadingItems()
         createResourceRatings()
 
+        println("SUBSCRIBED TOPICS LIST")
+        println(users.first().getSubscribedTopic())
+
         println("getting recent shares")
         List<Resource> recentShares= Resource.getRecentShares()
         recentShares.each {print it}
@@ -38,6 +41,7 @@ class BootStrap {
         println("getting top posts")
         List<ResourceVO> topPosts= Resource.getTopPost()
         topPosts.each {print it}
+
 
     }
     def destroy = {
@@ -64,6 +68,7 @@ class BootStrap {
             admin.save(flush: true, failOnError: true)
             users.add(admin)
         }
+
 
         User user = new User()
         user.firstname = "Archit"

@@ -18,14 +18,4 @@ class ReadingItem {
         resource(nullable: false, unique: 'user')
     }
 
-    static updateIsRead(Boolean isRead, Long id) {
-        try {
-            executeUpdate("UPDATE ReadingItem set isRead=:isRead1 where id=:id1", [isRead1 = isRead, id1 = id])
-            return true
-        }
-        catch (Exception exp) {
-            log.error("Error while updating: " + exp.message)
-            return false
-        }
-    }
 }

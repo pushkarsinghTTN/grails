@@ -8,7 +8,7 @@
             </div>
 
             <div class="modal-body">
-                <g:form class="form-horizontal" action="#">
+                <g:form class="form-horizontal" controller="invitation" action="index">
                     <div class="form-group">
                         <label class="control-label col-sm-2">Email</label>
 

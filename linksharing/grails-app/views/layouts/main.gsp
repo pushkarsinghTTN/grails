@@ -44,7 +44,9 @@
                                                                                             style="font-size:24px"></i>
                     </a>
                     </li>
+
                     <g:render template="/topic/createTopic"></g:render>
+
 
                     <li class="col-lg-1" style="padding: 0px"><a href="#myModal2" data-toggle="modal"
                                                                  data-target="#myModal2"><i class="fa fa-envelope"
