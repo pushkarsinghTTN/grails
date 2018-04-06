@@ -6,10 +6,11 @@ class ReadingItemController {
 
     def index() { }
 
-    def changeisRead(Long id, Boolean isRead){
-        if(ReadingItem.executeUpdate("UPDATE RadingItem set isRead=:isRead1 where id=:id1",
-                [isRead1=isRead,id1=id])){
-            render("SUCCESS")
+    def changeisRead(){
+        String str="UPDATE ReadingItem set isRead=true where id=${params.id}"
+        println(str)
+        if(ReadingItem.executeUpdate(str)){
+            redirect(controller:'user', action: 'index')
         }
         else
             render("ERROR")

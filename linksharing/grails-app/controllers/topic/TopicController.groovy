@@ -18,7 +18,7 @@ class TopicController {
 //
 //    }
     def show(){
-        render(view: 'topicCompleteInfo')
+        render(view: 'show')
     }
 
     def save(){
@@ -30,7 +30,7 @@ class TopicController {
         }else {
             log.info("Saved Successfully : $newtopic")
             flash.message="TOPIC SAVED SUCCESSFULLY"
-            //session.user.addToTopics(newtopic)
+            session.user.addToTopics(newtopic)
             flash.message="SUCCESSFULLY SAVED"
             //session.user.save(flush: true)
            }

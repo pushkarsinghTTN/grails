@@ -6,6 +6,7 @@ import user.User
 class ResourceVO {
     Integer id
     Integer count
+    String description
     User createdBy
     Topic topic
 

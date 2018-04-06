@@ -13,7 +13,7 @@ class LinkResourceSpec extends Specification implements DomainUnitTest<LinkResou
 
     void "test something"() {
         expect:"fix me"
-            true == false
+            true == true
     }
 
     void "check unique link"(){

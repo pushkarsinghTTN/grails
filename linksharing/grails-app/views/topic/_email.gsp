@@ -23,11 +23,11 @@
                         <button class="btn btn-default dropdown-toggle" type="button"
                                 data-toggle="dropdown" name="topicInvitation">Topic
                             <span class="caret"></span></button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Topic1</a></li>
-                            <li><a href="#">Topic2</a></li>
-
-                        </ul>
+                        <select class="form-control " name="topicName">
+                            <g:each in="${session.user.getUserTopics()}" var="topicList">
+                                <option value="${topicList}">${topicList}</option>
+                            </g:each>
+                        </select>
                     </div>
 
                     <br>

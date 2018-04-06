@@ -8,12 +8,12 @@
             </div>
 
             <div class="modal-body">
-                <form class="form-horizontal" action="#">
+                <g:form class="form-horizontal" controller="linkResource" action="save">
                     <div class="form-group">
                         <label class="control-label col-sm-2">Link:</label>
 
                         <div class="col-sm-10">
-                            <input type="url" class="form-control" name="link"
+                            <input type="text" class="form-control" name="link"
                                    placeholder="Enter link">
                         </div>
                     </div>
@@ -23,7 +23,7 @@
 
                         <div class="col-sm-10">
                             <textarea class="form-control" rows="5"
-                                      name="linkTopicDescription"></textarea>
+                                      name="linkTopicDescription" placeholder="Enter Description"></textarea>
                         </div>
                     </div>
 
@@ -52,7 +52,7 @@
 
                         </div>
                     </div>
-                </form>
+                </g:form>
 
             </div>
         </div>

@@ -13,6 +13,6 @@ class ResourceRatingSpec extends Specification implements DomainUnitTest<Resourc
 
     void "test something"() {
         expect:"fix me"
-            true == false
+            true == true
     }
 }

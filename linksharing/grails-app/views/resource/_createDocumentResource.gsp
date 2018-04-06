@@ -22,7 +22,7 @@
 
                         <div class="col-sm-10">
                             <textarea class="form-control" rows="5"
-                                      name="documentResourceDescription"></textarea>
+                                      name="documentResourceDescription" placeholder="Enter Description"></textarea>
                         </div>
                     </div>
 

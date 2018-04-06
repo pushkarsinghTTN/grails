@@ -69,8 +69,8 @@ class LoginController {
     }
 
     def forgotPassword() {
-        println ">>>>>>>>>>${params.username}"
-        println ">>>>>>>>>>${params.newPassword}"
+//        println ">>>>>>>>>>${params.username}"
+//        println ">>>>>>>>>>${params.newPassword}"
         User user= User.findByUsername(params.username)
         if(user) {
             user.password = params.newPassword

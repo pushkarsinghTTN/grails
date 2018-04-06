@@ -21,21 +21,21 @@
                 <div class="form-group col-lg-10">
                     <label>Enter Your Username</label>
                     <input class="form-control" type="text" name="username"
-                           placeholder="enter your username">
+                           placeholder="Enter Your Username">
                 </div>
 
 
                 <div class="form-group col-lg-10">
                     <label>Enter New Password</label>
                     <input class="form-control" type="password" name="newPassword"
-                           placeholder="enter your new password">
+                           placeholder="Enter Your New Password">
 
                 </div>
 
                 <div class="form-group col-lg-10">
                     <label>Confirm New Password</label>
                     <input class="form-control" type="password" name="confirmNewPassword"
-                           placeholder="confirm your new password" required>
+                           placeholder="Confirm Your New Password" required>
 
                 </div>
 

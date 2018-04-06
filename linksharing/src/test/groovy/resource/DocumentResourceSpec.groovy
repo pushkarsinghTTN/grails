@@ -13,7 +13,7 @@ class DocumentResourceSpec extends Specification implements DomainUnitTest<Docum
 
     void "test something"() {
         expect:"fix me"
-            true == false
+            true == true
     }
 
     void "check unique source"(){

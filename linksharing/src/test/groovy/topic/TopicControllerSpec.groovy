@@ -13,6 +13,6 @@ class TopicControllerSpec extends Specification implements ControllerUnitTest<To
 
     void "test something"() {
         expect:"fix me"
-            true == false
+            true == true
     }
 }

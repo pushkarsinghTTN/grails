@@ -13,7 +13,7 @@ class LoginService {
     User registerUser(Map userData) {
         User user = new User(firstname: userData.firstname, lastname: userData.lastname,
                 email: userData.email, username: userData.username, password: userData.password,
-                confirmpassword: userData.confirmpassword)
+                confirmpassword: userData.confirmpassword, active: true)
         if (user.save(flush: true)) {
             log.info("User created : $user")
             return user

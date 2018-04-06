@@ -1,16 +1,20 @@
 package resource
 
+import topic.Topic
+
 class DocumentResourceController {
 
     def index() { }
 
     def save(){
-        DocumentResource documentResource = new DocumentResource(createdBy: session.user, description: params.description, topic: params.topic)
-        if (documentResource.save())
-            flash.message="DOCUMENT RESOURCE SAVED"
-        else
-            flash.message="ERROR"
-
-        forward(controller:'user', action: 'index')
+        Resource documentResource = new DocumentResource(createdBy: session.user, description: params.documentResourceDescription, topic: Topic.findByName(params.topicName))
+        if (documentResource.save(flush: true)) {
+            log.info("Saved Successfully : $documentResource")
+            flash.message = "DOCUMENT RESOURCE SAVED"
+        } else {
+            log.error("Error while saving : $documentResource")
+            flash.message = "ERROR"
+        }
+        redirect(controller: 'user', action: 'index')
     }
 }

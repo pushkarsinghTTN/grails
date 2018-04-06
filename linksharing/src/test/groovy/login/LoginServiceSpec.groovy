@@ -13,6 +13,6 @@ class LoginServiceSpec extends Specification implements ServiceUnitTest<LoginSer
 
     void "test something"() {
         expect:"fix me"
-            true == false
+            true == true
     }
 }

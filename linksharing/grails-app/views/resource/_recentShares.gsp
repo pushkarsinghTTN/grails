@@ -26,11 +26,10 @@
                     <i class="fa fa-facebook-official fa-lg" aria-hidden="true"></i>
                     <i class="fa fa-google fa-lg" aria-hidden="true"></i>
                     <i class="fa fa-twitter fa-lg" aria-hidden="true"></i>
-                    <span class="pull-right" style="margin-right: 0px;color: #007efc"><a href="#"
-                                                                                         style="color: #007efc;font-size: small">View Topic</a>
+                    <span class="pull-right" style="margin-right: 0px;color: #007efc">
+                        <g:link controller="topic" action="show" params="${[topicId:recentShares.id]}" style="color: #007efc;font-size: small">View Topic</g:link>
                     </span>
                 </div>
-                <hr>
             </g:each>
         </div>
 

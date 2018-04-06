@@ -1,6 +1,7 @@
 package resource
 
 import co.ResourceSearchCo
+import enumeration.Visibility
 import readingItem.ReadingItem
 import resourceRating.ResourceRating
 import topic.Topic
@@ -83,13 +84,14 @@ abstract class Resource {
                 property('r.createdBy')
                 property('r.topic')
                 count('r.id', 'count')
+                property('r.description')
             }
             order('count', 'desc')
             maxResults(5)
         }
         List result = []
         topPosts.each{
-            result.add(new ResourceVO(id: it[0],createdBy: it[1],topic: it[2],count: it[3]))
+            result.add(new ResourceVO(id: it[0],createdBy: it[1],topic: it[2],count: it[3],description: it[4]))
         }
         println("Returning top posts : " + result)
         return result
@@ -98,6 +100,7 @@ abstract class Resource {
     static List<Resource> getRecentShares(){
 
         List<Resource> recentShares = Resource.createCriteria().list {
+           // eq('topic.visibility',Visibility.PUBLIC)
             order("dateCreated", "desc")
             maxResults(2)
 

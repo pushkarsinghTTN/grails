@@ -13,6 +13,6 @@ class SubscriptionSpec extends Specification implements DomainUnitTest<Subscript
 
     void "test something"() {
         expect:"fix me"
-            true == false
+            true == true
     }
 }

@@ -1,16 +1,21 @@
 package resource
 
+import topic.Topic
+
 class LinkResourceController {
 
-    def index() { }
+    def index() {}
 
-    def save(){
-        LinkResource linkResource = new LinkResource(createdBy: session.user, description: params.linkTopicDescription, topic: params.topic , url: params.link)
-        if (linkResource.save())
-            flash.message="LINK RESOURCE SAVED"
-        else
-            flash.message="ERROR"
-
-        forward(controller:'user', action: 'index')
+    def save() {
+        Resource linkResource = new LinkResource(createdBy: session.user, description: params.linkTopicDescription, topic: Topic.findByName(params.topicName), url: params.link)
+        if (linkResource.save(flush: true)) {
+            log.info("Saved Successfully : $linkResource")
+            flash.message = "LINK RESOURCE SAVED"
+        } else {
+            log.error("Error while saving : $linkResource")
+            linkResource.errors.allErrors.each{println(it)}
+            flash.message = "ERROR"
+        }
+        redirect(controller: 'user', action: 'index')
     }
 }

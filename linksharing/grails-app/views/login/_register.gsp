@@ -11,39 +11,39 @@
                 <div class="form-group col-lg-10">
                     <label>First Name</label>
                     <input class="form-control" type="text" name="firstname"
-                           placeholder="enter your first name">
+                           placeholder="Enter Your First name">
                 </div>
 
                 <div class="col-lg-2"></div>
 
                 <div class="form-group col-lg-10">
                     <label>Last name</label>
-                    <input class="form-control" type="text" name="lastname" placeholder="enter your last name">
+                    <input class="form-control" type="text" name="lastname" placeholder="Enter Your Last name">
 
                 </div>
 
                 <div class="form-group col-lg-10">
                     <label>Email</label>
-                    <input class="form-control" type="email" name="email" placeholder="enter your email">
+                    <input class="form-control" type="email" name="email" placeholder="Enter Your Email">
 
                 </div>
 
                 <div class="form-group col-lg-10">
                     <label>Username</label>
-                    <input class="form-control" type="text" name="username">
+                    <input class="form-control" type="text" name="username" placeholder="Enter Your Username">
 
                 </div>
 
                 <div class="form-group col-lg-10">
                     <label>Password</label>
-                    <input class="form-control" type="password" name="password" placeholder="enter password">
+                    <input class="form-control" type="password" name="password" placeholder="Enter Your Password">
 
                 </div>
 
                 <div class="form-group col-lg-10">
                     <label>Confirm Password</label>
                     <input class="form-control" type="password" name="confirmpassword"
-                           placeholder="confirm your password">
+                           placeholder="Confirm Your Password">
 
                 </div>
 

@@ -25,17 +25,24 @@
                     <p>${topPosts.createdBy.getName()}<span
                             style="color: darkgray">@${topPosts.createdBy.username}</span><span
                             class="pull-right"
-                            style="margin-right: 0px;color: #007efc;font-size: small">${topPosts.topic.name}</span>
+                            style="margin-right: 0px;font-size: small">${topPosts.description}</span>
                     </p>
-
-                    <p>${topPosts.topic.name}</p>
 
 
                     <i class="fa fa-facebook-official fa-lg" aria-hidden="true"></i>
                     <i class="fa fa-google fa-lg" aria-hidden="true"></i>
                     <i class="fa fa-twitter fa-lg" aria-hidden="true"></i>
-                    <span class="pull-right" style="margin-right: 0px;color: #007efc"><a href="#"
-                                                                                         style="color: #007efc;font-size: small">View Topic</a>
+                    <span class="pull-right" style="margin-right: 0px;color: #007efc">
+                        <g:link controller="resource" action="show"
+                                style="color: #007efc;font-size: small">View Post</g:link>
+                        <g:if test="${session.user}">
+                        %{--<g:link controller="readingItem" action="changeisRead" id="${}--}%
+                        %{--style="color: #007efc;font-size: small">Mark Read</g:link>--}%
+                            <g:link action="/topic/show.gsp" params="${[topic: topPosts.topic]}"
+                                    style="color: #007efc;font-size: small">View Topic</g:link>
+                            <g:link controller="download" action="index"
+                                    style="color: #007efc;font-size: small">Download</g:link>
+                        </g:if>
                     </span>
 
                 </div>

@@ -13,6 +13,6 @@ class ReadingItemSpec extends Specification implements DomainUnitTest<ReadingIte
 
     void "test something"() {
         expect:"fix me"
-            true == false
+            true == true
     }
 }

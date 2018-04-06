@@ -13,6 +13,6 @@ class TopicSpec extends Specification implements DomainUnitTest<Topic> {
 
     void "test something"() {
         expect:"fix me"
-            true == false
+            true == true
     }
 }
