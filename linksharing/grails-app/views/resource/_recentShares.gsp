@@ -27,7 +27,7 @@
                     <i class="fa fa-google fa-lg" aria-hidden="true"></i>
                     <i class="fa fa-twitter fa-lg" aria-hidden="true"></i>
                     <span class="pull-right" style="margin-right: 0px;color: #007efc">
-                        <a href="${createLink(controller:'resource',action:'show',id:recentShares.id)}">View Post</a>
+                        <a href="${createLink(controller:'resource',action:'showPost',id:recentShares.id)}">View Post</a>
                     </span>
                 </div>
                 <div class="col-lg-12">

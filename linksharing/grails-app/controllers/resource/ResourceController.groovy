@@ -39,4 +39,11 @@ class ResourceController {
                 trendingTopics.each {println("$it.name + $it.visibility + $it.createdBy")})
     }
 
+    def showPost(){
+        Long resourceId= new Long(params.id)
+        Resource resource = Resource.findById(resourceId)
+        println resource
+        render(view: 'show', model: [resource : resource])
+    }
+
 }

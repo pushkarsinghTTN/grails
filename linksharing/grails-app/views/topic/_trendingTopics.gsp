@@ -23,16 +23,18 @@
                                 <div class="col-sm-6">
                                     <h6 class="text-muted">@${trendingTopics.createdBy.username}</h6>
                                     <% subscription.Subscription subscription = subscription.Subscription.findByUserAndTopic(session.user, trendingTopics) %>
-                                    <g:if test="${subscription && trendingTopics.createdBy != session.user}">
-                                        <g:link controller="subscription" action="delete"
-                                                params="${[topicId: trendingTopics.id]}">Unsubscribe</g:link>
+                                    <g:if test="${session.user}">
+                                        <g:if test="${subscription && trendingTopics.createdBy != session.user}">
+                                            <g:link controller="subscription" action="delete"
+                                                    params="${[topicId: trendingTopics.id]}">Unsubscribe</g:link>
+                                        </g:if>
+                                        <g:elseif test="${subscription && trendingTopics.createdBy == session.user}">
+                                        </g:elseif>
+                                        <g:else>
+                                            <g:link controller="subscription" action="save"
+                                                    params="${[topicId: trendingTopics.id]}">Subscribe</g:link>
+                                        </g:else>
                                     </g:if>
-                                    <g:elseif test="${subscription && trendingTopics.createdBy == session.user}">
-                                    </g:elseif>
-                                    <g:else>
-                                        <g:link controller="subscription" action="save"
-                                                params="${[topicId: trendingTopics.id]}">Subscribe</g:link>
-                                    </g:else>
                                 </div>
 
                                 <div class="col-sm-3">
@@ -48,28 +50,30 @@
                                         <p class="text-primary">${trendingTopics.resources.size()}</p>
                                     </h6>
                                 </div>
-                                <g:if test="${trendingTopics.createdBy == session.user || session.user.admin}">
-                                    <span type="img" class="glyphicon glyphicon-trash pull-right fa-2x"
+                                <g:if test="${session.user}">
+                                    <g:if test="${trendingTopics?.createdBy == session.user || session.user?.admin}">
+                                        <span type="img" class="glyphicon glyphicon-trash pull-right fa-2x"
+                                              style="margin-left: 10px;color: #007efc;"></span>
+                                        <span type="img" class="fa fa-file pull-right fa-2x"
+                                              style="margin-left: 10px;  margin-right: 5px;color: #007efc;"></span>
+                                    </g:if>
+                                    <span type="img" class="fa fa-envelope pull-right fa-2x"
                                           style="margin-left: 10px;color: #007efc;"></span>
-                                    <span type="img" class="fa fa-file pull-right fa-2x"
-                                          style="margin-left: 10px;  margin-right: 5px;color: #007efc;"></span>
-                                </g:if>
-                                <span type="img" class="fa fa-envelope pull-right fa-2x"
-                                      style="margin-left: 10px;color: #007efc;"></span>
 
-                                <select class="pull-right">
-                                    <option value="${enumeration.Seriousness.VERYSERIOUS}">Very Serious</option>
-                                    <option value="${enumeration.Seriousness.SERIOUS}">Serious</option>
-                                    <option value="${enumeration.Seriousness.CASUAL}">Casual</option>
-                                </select>
+                                    <select class="pull-right">
+                                        <option value="${enumeration.Seriousness.VERYSERIOUS}">Very Serious</option>
+                                        <option value="${enumeration.Seriousness.SERIOUS}">Serious</option>
+                                        <option value="${enumeration.Seriousness.CASUAL}">Casual</option>
+                                    </select>
 
-                                <g:if test="${trendingTopics.createdBy == session.user || session.user.admin}">
-                                    <div>
-                                        <select class="pull-right">
-                                            <option value="${enumeration.Visibility.PRIVATE}">Private</option>
-                                            <option value="${enumeration.Visibility.PUBLIC}">Public</option>
-                                        </select>
-                                    </div>
+                                    <g:if test="${trendingTopics.createdBy == session.user || session.user?.admin}">
+                                        <div>
+                                            <select class="pull-right">
+                                                <option value="${enumeration.Visibility.PRIVATE}">Private</option>
+                                                <option value="${enumeration.Visibility.PUBLIC}">Public</option>
+                                            </select>
+                                        </div>
+                                    </g:if>
                                 </g:if>
                             </div>
                         </div>
