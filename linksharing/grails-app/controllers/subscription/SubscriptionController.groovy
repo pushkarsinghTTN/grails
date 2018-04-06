@@ -10,7 +10,7 @@ class SubscriptionController {
 
     def save(){
         Topic topic=Topic.findById(params.topicId)
-        Subscription subscription = new Subscription(createdby: session.user,topic: topic)
+        Subscription subscription = new Subscription(user: session.user,topic: topic,seriousness: Seriousness.SERIOUS)
         if (!subscription.save(flush: true)) {
             log.error("Error while saving- $subscription")
             subscription.errors.allErrors.each {println it}
@@ -18,11 +18,11 @@ class SubscriptionController {
         }else {
             log.info("Saved Successfully : $subscription")
             flash.message="SUBSCRIPTION ADDED SUCCESSFULLY"
-            redirect(controller: 'user',action: 'index')
-//            session.user.addToSubscriptions(subscription)
-//            topic.addToSubscriptions(subscription)
-//            topic.save(flush:true)
+            session.user.addToSubscriptions(subscription)
+            topic.addToSubscriptions(subscription)
+            topic.save(flush:true)
 //            session.user.save(flush: true)
+            redirect(controller: 'user',action: 'index')
 //            render("SUCCESS")
         }
     }

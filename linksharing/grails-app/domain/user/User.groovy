@@ -13,7 +13,7 @@ class User {
     String password
     String confirmpassword
     String email
-    Byte photo
+    byte[] photo
     Boolean admin
     Boolean active
     String name
@@ -77,7 +77,6 @@ class User {
         List<Topic> subscribedTopics = []
         if (this.subscriptions) {
             this.subscriptions.each {
-                if (it.topic.createdBy != it.user)
                     subscribedTopics.add(it.topic)
             }
         }

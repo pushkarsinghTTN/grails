@@ -20,18 +20,19 @@
                     <div class="dropdown">
                         <label class="control-label col-sm-2">Topic:</label>
 
-                        <button class="btn btn-default dropdown-toggle" type="button"
+                      %{--  <button class="btn btn-default dropdown-toggle" type="button"
                                 data-toggle="dropdown" name="topicInvitation">Topic
-                            <span class="caret"></span></button>
-                        <select class="form-control " name="topicName">
+                         --}%  %{-- <span class="caret"></span></button>--}%
+                        <div class="col-sm-10">
+                        <select class="form-control  " name="topicName">
                             <g:each in="${session.user.getUserTopics()}" var="topicList">
                                 <option value="${topicList}">${topicList}</option>
                             </g:each>
                         </select>
                     </div>
 
-                    <br>
-
+                    <br/>
+<br/>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <button type="submit" class="btn btn-default">Share</button>
@@ -47,4 +48,5 @@
         </div>
 
     </div>
+</div>
 </div>

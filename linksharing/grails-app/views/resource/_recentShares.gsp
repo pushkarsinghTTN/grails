@@ -18,7 +18,7 @@
                     <p>${recentShares.createdBy.name}  <span
                             style="color: darkgray">@${recentShares.createdBy.username}</span><span
                             class="pull-right"
-                            style="margin-right: 0px;color: #007efc;font-size: small">${recentShares.topic.name}</span>
+                            style="margin-right: 0px;color: #007efc;font-size: small"><a href="${createLink(controller: 'topic', action: 'show',id: recentShares.topic.id)}">${recentShares.topic.name}</a></span>
                     </p>
 
                     <p>${recentShares.description}</p>
@@ -27,8 +27,11 @@
                     <i class="fa fa-google fa-lg" aria-hidden="true"></i>
                     <i class="fa fa-twitter fa-lg" aria-hidden="true"></i>
                     <span class="pull-right" style="margin-right: 0px;color: #007efc">
-                        <g:link controller="topic" action="show" params="${[topicId:recentShares.id]}" style="color: #007efc;font-size: small">View Topic</g:link>
+                        <a href="${createLink(controller:'resource',action:'show',id:recentShares.id)}">View Post</a>
                     </span>
+                </div>
+                <div class="col-lg-12">
+                    <hr>
                 </div>
             </g:each>
         </div>

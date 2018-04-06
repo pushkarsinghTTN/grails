@@ -18,7 +18,10 @@ class TopicController {
 //
 //    }
     def show(){
-        render(view: 'show')
+        Long topicId= new Long(params.id)
+        Topic topic = Topic.findById(topicId)
+        println topic
+        render(view: 'show', model: [topic : topic])
     }
 
     def save(){

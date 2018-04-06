@@ -15,7 +15,7 @@
 </head>
 
 <body>
-<% topic.Topic topic = topic.Topic.findById(params.topicId) %>
+%{--<% topic.Topic topic = topic.Topic.findById(params.id) %>--}%
 <div class="container">
     <div class="col-lg-6">
         <div class="col-lg-12">
@@ -45,24 +45,24 @@
                                     <% subscription.Subscription subscription = Subscription.findByUserAndTopic(session.user, topic) %>
                                     <g:if test="${subscription}">
                                         <g:link controller="subscription" action="delete"
-                                                params="${[topicId: trendingTopics.id]}">Unsubscribe</g:link>
+                                                params="${[topicId: topic.id]}">Unsubscribe</g:link>
                                     </g:if>
                                     <g:else>
                                         <g:link controller="subscription" action="save"
-                                                params="${[topicId: trendingTopics.id]}">Subscribe</g:link>
+                                                params="${[topicId: topic.id]}">Subscribe</g:link>
                                     </g:else>
 
                                 </div>
 
                                 <div class="col-lg-5">
                                     <p style="color: #007efc">Subscriptions</p>
-                                    <p1 style="color: #2e6da4">${params.topic.subscriptions.size()}</p1>
+                                    <p1 style="color: #2e6da4">${topic.subscriptions.size()}</p1>
 
                                 </div>
 
                                 <div class="col-lg-2">
                                     <p style="color: #007efc">Post</p>
-                                    <p1 style="color: #2e6da4">${params.topic.resources.size()}</p1>
+                                    <p1 style="color: #2e6da4">${topic.resources.size()}</p1>
                                 </div>
 
                             </div>
@@ -76,15 +76,15 @@
         </div>
 
         <div class="col-lg-12">
-            <g:each in="${subscription.Subscription.findByTopic(topic)}" var="subscriptions">
-                <div class=" panel panel-default     ">
-                    <div class="panel-heading " style="background: #007efc">
-                        <p>
+            <div class=" panel panel-default     ">
+                <div class="panel-heading " style="background: #007efc">
+                    <p>
 
-                        <h3 style="color:white">User:"${topic.name}"</h3></p>
-                    </div>
+                    <h3 style="color:white">User:"${topic.name}"</h3></p>
+                </div>
 
-                    <div class="panel-body  ">
+                <div class="panel-body  ">
+                    <g:each in="${subscription.Subscription.findAllByTopic(topic)}" var="subscriptions">
                         <div class="col-lg-12">
                             <div class="col-lg-3" style="margin-top: 25px">
                                 <i class="fa fa-user-circle fa-5x" aria-hidden="true"></i>
@@ -96,10 +96,6 @@
                                     <h5>${subscriptions.user.getName()}</h5>
 
                                     <p STYLE="color: #007efc ">@${subscriptions.user.username}</p>
-                                </div>
-
-                                <div class="col-lg-12">
-                                    <hr>
                                 </div>
 
                                 <div class="col-lg-12">
@@ -122,10 +118,9 @@
                         <div class="col-lg-12">
                             <hr>
                         </div>
-
-                    </div>
+                    </g:each>
                 </div>
-            </g:each>
+            </div>
 
         </div>
     </div>
@@ -157,7 +152,7 @@
                     </div>
 
                     <div class="panel-body  ">
-                        <g:each in="${resource.Resource.findByTopic(topic)}" var="resourceList">
+                        <g:each in="${resource.Resource.findAllByTopic(topic)}" var="resourceList">
                             <div class="col-lg-12">
                                 <div class="col-lg-3" style="margin-top: 25px">
                                     <i class="fa fa-user-circle fa-5x" aria-hidden="true"></i>
@@ -187,8 +182,6 @@
                                             <span class="pull-right" style="margin-right: 0px;color: #007efc"><a
                                                     href="#"
                                                     style="color: #007efc;font-size: 75%">Download</a>
-                                                <a href="#" style="color: #007efc;font-size: 75%">Mark as Read</a>
-                                                <a href="#" style="color: #007efc;font-size: 75%">View Topic</a></span>
                                         </div>
                                     </div>
 

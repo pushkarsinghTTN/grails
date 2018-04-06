@@ -7,7 +7,7 @@
         </div>
 
         <div class="panel-body ">
-            <g:form controller="login" action="register" method="post">
+            <g:form controller="login" action="register" method="post" enctype="multipart/form-data">
                 <div class="form-group col-lg-10">
                     <label>First Name</label>
                     <input class="form-control" type="text" name="firstname"

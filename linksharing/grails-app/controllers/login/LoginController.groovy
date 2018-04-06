@@ -32,8 +32,6 @@ class LoginController {
         if (user1) {
             if (user1.active) {
                 session.user = user1
-//                flash.error=null
-//                flash.message="YOU LOGGED IN SUCCESSFULLY"
                 forward(controller: "user", action: "index")
             } else {
                 flash.error = "YOUR ACCOUNT IS INACTIVE"
