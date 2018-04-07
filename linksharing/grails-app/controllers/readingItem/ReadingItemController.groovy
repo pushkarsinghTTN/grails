@@ -4,15 +4,16 @@ import user.User
 
 class ReadingItemController {
 
-    def index() { }
+    ReadingItemService readingItemService
 
-    def changeisRead(){
-        String str="UPDATE ReadingItem set isRead=true where id=${params.id}"
-        println(str)
-        if(ReadingItem.executeUpdate(str)){
-            redirect(controller:'user', action: 'index')
-        }
+    def index() {}
+
+    def changeisRead() {
+
+        if (readingItemService.changeIsRead(params))
+            flash.message = "MARKED AS READ"
         else
-            render("ERROR")
-
-    }}
+            flash.error = "ERROR"
+        redirect(controller: 'user', action: 'index')
+    }
+}
