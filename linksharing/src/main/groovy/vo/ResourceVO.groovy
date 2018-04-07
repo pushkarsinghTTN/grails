@@ -4,11 +4,12 @@ import topic.Topic
 import user.User
 
 class ResourceVO {
-    Integer id
-    Integer count
-    String description
-    User createdBy
-    Topic topic
+    Integer resourceId
+    Integer topicId
+    String resourceDescription
+    String ownerName
+    String ownerUsername
+    String topicName
 
 
     @Override

@@ -1,4 +1,4 @@
-<%@ page import="subscription.Subscription" contentType="text/html;charset=UTF-8" %>
+<%@ page import="topic.Topic; subscription.Subscription" contentType="text/html;charset=UTF-8" %>
 
 <html>
 <head>
@@ -23,7 +23,7 @@
                 <div class="panel-heading " style="background: #007efc">
                     <p>
 
-                    <h3 style="color:white">Topic:"${topic.name}"</h3></p>
+                    <h3 style="color:white">Topic:"${topicVO.topicName}"</h3></p>
                 </div>
 
                 <div class="panel-body  ">
@@ -35,34 +35,37 @@
 
                         <div class="col-lg-9">
                             <div class="col-lg-12">
-                                <h5><a href="#">${topic.name}</a> <span
-                                        STYLE="color: #007efc ">(${topic.visibility})</span></h5>
+                                <h5><a href="#">${topicVO.topicName}</a> <span
+                                        STYLE="color: #007efc ">(${topicVO.topicVisibility})</span></h5>
                             </div>
 
                             <div class="col-lg-12">
                                 <div class="col-lg-5">
-                                    <p style="color: #007efc">@${topic.createdBy.username}</p>
-                                    <% subscription.Subscription subscription = Subscription.findByUserAndTopic(session.user, topic) %>
-                                    <g:if test="${subscription}">
-                                        <g:link controller="subscription" action="delete"
-                                                params="${[topicId: topic.id]}">Unsubscribe</g:link>
+                                    <small
+                                            class="text-muted">@${topicVO.ownerUsername}</small>
+                                    <g:if test="${session.user}">
+                                        <% topic.Topic topic = Topic.findById(topicVO.topicId)
+                                        subscription.Subscription subscription = Subscription.findByUserAndTopic(session.user, topic) %>
+                                        <g:if test="${subscription}">
+                                            <g:link controller="subscription" action="delete"
+                                                    params="${[topicId: topicVO.topicId]}">Unsubscribe</g:link>
+                                        </g:if>
+                                        <g:else>
+                                            <g:link controller="subscription" action="save"
+                                                    params="${[topicId: topicVO.topicId]}">Subscribe</g:link>
+                                        </g:else>
                                     </g:if>
-                                    <g:else>
-                                        <g:link controller="subscription" action="save"
-                                                params="${[topicId: topic.id]}">Subscribe</g:link>
-                                    </g:else>
-
                                 </div>
 
                                 <div class="col-lg-5">
                                     <p style="color: #007efc">Subscriptions</p>
-                                    <p1 style="color: #2e6da4">${topic.subscriptions.size()}</p1>
+                                    <p1 style="color: #2e6da4">${topicVO.subscriptionCount}</p1>
 
                                 </div>
 
                                 <div class="col-lg-2">
                                     <p style="color: #007efc">Post</p>
-                                    <p1 style="color: #2e6da4">${topic.resources.size()}</p1>
+                                    <p1 style="color: #2e6da4">${topicVO.resourcesCount}</p1>
                                 </div>
 
                             </div>
@@ -80,11 +83,11 @@
                 <div class="panel-heading " style="background: #007efc">
                     <p>
 
-                    <h3 style="color:white">User:"${topic.name}"</h3></p>
+                    <h3 style="color:white">User:"${topicVO.topicName}"</h3></p>
                 </div>
 
                 <div class="panel-body  ">
-                    <g:each in="${subscription.Subscription.findAllByTopic(topic)}" var="subscriptions">
+                    <g:each in="${subscribedUserList}" var="subscribedUser">
                         <div class="col-lg-12">
                             <div class="col-lg-3" style="margin-top: 25px">
                                 <i class="fa fa-user-circle fa-5x" aria-hidden="true"></i>
@@ -93,20 +96,20 @@
 
                             <div class="col-lg-9">
                                 <div class="col-lg-12">
-                                    <h5>${subscriptions.user.getName()}</h5>
+                                    <h5>${subscribedUser.name}</h5>
 
-                                    <p STYLE="color: #007efc ">@${subscriptions.user.username}</p>
+                                    <p class="text-muted">@${subscribedUser.username}</p>
                                 </div>
 
                                 <div class="col-lg-12">
                                     <div class="col-lg-6">
                                         <p style="color: #007efc">Subscriptions</p>
-                                        <p1><a href="#">${subscriptions.user.subscriptions.size()}</a></p1>
+                                        <p1><a href="#">${subscribedUser.subscriptionCount}</a></p1>
                                     </div>
 
                                     <div class="col-lg-6">
                                         <p style="color: #007efc">Topics</p>
-                                        <p1 style="color: #2e6da4">${subscriptions.user.topics.size()}</p1>
+                                        <p1 style="color: #2e6da4">${subscribedUser.topicCount}</p1>
 
                                     </div>
 
@@ -131,7 +134,7 @@
                 <div class=" panel panel-default     ">
                     <div class="panel-heading col-lg-12" style="background: #007efc;">
                         <div class="col-lg-4">
-                            <h3 style="color:white">Posts:"${topic.name}"</h3>
+                            <h3 style="color:white">Posts:"${topicVO.topicName}"</h3>
                         </div>
 
                         <div class="col-lg-8">
@@ -152,7 +155,7 @@
                     </div>
 
                     <div class="panel-body  ">
-                        <g:each in="${resource.Resource.findAllByTopic(topic)}" var="resourceList">
+                        <g:each in="${resourceList}" var="resource">
                             <div class="col-lg-12">
                                 <div class="col-lg-3" style="margin-top: 25px">
                                     <i class="fa fa-user-circle fa-5x" aria-hidden="true"></i>
@@ -163,14 +166,14 @@
                                     <div class="col-sm-12">
                                         <br>
 
-                                        <span>${resourceList.createdBy.getName()} &nbsp;&nbsp;&nbsp;&nbsp;<small
-                                                class="text-muted">@${resourceList.createdBy.username}</small>
+                                        <span>${resource.ownerName} &nbsp;&nbsp;&nbsp;&nbsp;<small
+                                                class="text-muted">@${resource.ownerUsername}</small>
 
-                                            <a href="#" class="pull-right">${topic.name}</a>
+                                            <a href="#" class="pull-right">${topicVO.topicName}</a>
                                             <br><br>
 
                                             <div class="col-lg-12">
-                                                <p>${resourceList.description}</p>
+                                                <p>${resource.resourceDescription}</p>
                                             </div>
 
                                         </span>
@@ -182,7 +185,8 @@
                                             <span class="pull-right" style="margin-right: 0px;color: #007efc"><a
                                                     href="#"
                                                     style="color: #007efc;font-size: 75%">Download</a>
-                                                <a href="${createLink(controller: 'resource', action: 'showPost', id: resourceList.id)}">View Post</a>
+                                                <a href="${createLink(controller: 'resource', action: 'showPost', id: resource.resourceId)}">View Post</a>
+                                            </span>
                                         </div>
                                     </div>
 

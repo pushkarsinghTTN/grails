@@ -14,8 +14,8 @@ class UserController {
         if (session.user) {
             List<InboxVO> unReadResourcesList = session.user.getUnReadResources()
             List<SubscriptionsVO> subscriptionsList = session.user.getUserSubscriptions()
-            List<TrendingTopicsVO> trendingTopicsList= Topic.getTrendingTopics(new TrendingTopicsCO(sessionUser: session.user))
-            render(view: 'index', model: [unReadResourcesList: unReadResourcesList, subscriptionsList: subscriptionsList,trendingTopicsList:trendingTopicsList])
+            List<TrendingTopicsVO> trendingTopicsList = Topic.getTrendingTopics(new TrendingTopicsCO(sessionUser: session.user))
+            render(view: 'index', model: [unReadResourcesList: unReadResourcesList, subscriptionsList: subscriptionsList, trendingTopicsList: trendingTopicsList])
         } else
             redirect(controller: 'login', action: 'index')
     }

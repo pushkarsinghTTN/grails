@@ -4,9 +4,11 @@ import enumeration.Visibility
 import user.User
 
 class TopicVO {
-    Integer id
-    String name
-    Visibility visibility
-    Integer count
-    User createdBy
+    Integer topicId
+    String topicName
+    Visibility topicVisibility
+    String ownerName
+    String ownerUsername
+    Integer subscriptionCount
+    Integer resourcesCount
 }
