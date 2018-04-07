@@ -40,28 +40,33 @@
                                     </h6>
                                 </div>
                                 <g:if test="${subscribedTopics.createdBy == session.user || session.user.admin}">
-                                    <span type="img" class="glyphicon glyphicon-trash pull-right fa-2x"
-                                          style="margin-left: 10px;color: #007efc;"></span>
-                                    <span type="img" class="fa fa-file pull-right fa-2x"
-                                          style="margin-left: 10px;  margin-right: 5px;color: #007efc;"></span>
+                                    <a href="${createLink(controller: 'topic', action: 'delete', id: subscribedTopics.id)}"><span
+                                            type="img" class="glyphicon glyphicon-trash pull-right fa-2x"
+                                            style="margin-left: 10px;color: #007efc;"></span></a>
+                                    <a href="#"><span type="img" class="fa fa-file pull-right fa-2x"
+                                                      style="margin-left: 10px;  margin-right: 5px;color: #007efc;"></span>
+                                    </a>
                                 </g:if>
-                                <span type="img" class="fa fa-envelope pull-right fa-2x"
-                                      style="margin-left: 10px;color: #007efc;"></span>
+                                <a href="#"><span type="img" class="fa fa-envelope pull-right fa-2x"
+                                                  style="margin-left: 10px;color: #007efc;"></span></a>
 
-                                <select class="pull-right" >
-                                    <option value="${enumeration.Seriousness.VERYSERIOUS}">Very Serious</option>
-                                    <option value="${enumeration.Seriousness.SERIOUS}">Serious</option>
-                                    <option value="${enumeration.Seriousness.CASUAL}">Casual</option>
-                                </select>
+                                <g:form controller="subscription" action="update" method="post">
+                                    <select class="pull-right" name="updatedSeriousness">
+                                        <option value="${enumeration.Seriousness.VERYSERIOUS}">Very Serious</option>
+                                        <option value="${enumeration.Seriousness.SERIOUS}">Serious</option>
+                                        <option value="${enumeration.Seriousness.CASUAL}">Casual</option>
+                                    </select>
 
-                                <g:if test="${subscribedTopics.createdBy == session.user || session.user.admin}">
-                                    <div>
-                                        <select class="pull-right">
-                                            <option value="${enumeration.Visibility.PRIVATE}">Private</option>
-                                            <option value="${enumeration.Visibility.PUBLIC}">Public</option>
-                                        </select>
-                                    </div>
-                                </g:if>
+                                    <g:if test="${subscribedTopics.createdBy == session.user || session.user.admin}">
+                                        <div>
+                                            <select class="pull-right" name="updatedVisibility">
+                                                <option class="placeholder" selected disabled value="">${subscribedTopics.visibility}</option>
+                                                <option value="${enumeration.Visibility.PRIVATE}">PRIVATE</option>
+                                                <option value="${enumeration.Visibility.PUBLIC}">PUBLIC</option>
+                                            </select>
+                                        </div>
+                                    </g:if>
+                                </g:form>
                             </div>
                         </div>
                     </div>

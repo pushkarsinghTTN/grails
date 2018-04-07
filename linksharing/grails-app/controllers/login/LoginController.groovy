@@ -13,12 +13,6 @@ class LoginController {
             log.info("REDIRECTING TO USER INDEX")
             forward(controller: "User", action: "index")
         }
-// else if (session.user && flash.error) {
-//            render(view: 'error')
-//        } else {
-//            flash.error = "PLEASE LOGIN BY PASSING PARAMETERS IN URL WHILE CALLING"
-//            render(view: 'error')
-//        }
         else {
             log.info("NO SESSION USER FOUND")
             render(view: 'index')
@@ -26,25 +20,17 @@ class LoginController {
     }
 
     def loginhandler() {
-        String username = params.loginusername
-        String password = params.loginpassword
-        User user1 = User.findByUsernameAndPassword(username, password)
-        if (user1) {
-            if (user1.active) {
-                session.user = user1
+        User user= loginService.loginUser(params)
+        if (user) {
+            if (user.active) {
+                session.user = user
                 forward(controller: "user", action: "index")
             } else {
                 flash.error = "YOUR ACCOUNT IS INACTIVE"
                 render(view: 'error')
             }
-        } else if (User.findByUsername(username)) {
-            flash.message = "ENTER THE CORRECT PASSWORD AND TRY AGAIN"
-            render(view: 'message')
-        } else if (!username || !password) {
-            flash.message = "ENTER THE CORRECT CREDENTIALS AND TRY AGAIN"
-            render(view: 'message')
-        } else {
-            flash.error = "USER NOT FOUND"
+        }else {
+            flash.error = "INCORRECT USERNAME OR PASSWORD"
             redirect(controller: 'Login', action: "index")
         }
     }
@@ -56,7 +42,7 @@ class LoginController {
             session.user = user
             forward(controller: 'User', action: 'index')
         } else {
-            flash.error = "Unable to register user"
+            flash.error = "UNABLE TO REGISTER USER"
         }
     }
 
@@ -67,28 +53,16 @@ class LoginController {
     }
 
     def forgotPassword() {
-//        println ">>>>>>>>>>${params.username}"
-//        println ">>>>>>>>>>${params.newPassword}"
         User user= User.findByUsername(params.username)
         if(user) {
-            user.password = params.newPassword
-            user.confirmpassword = params.confirmNewPassword
-            if (user.save(flush: true)) {
                 session.user = user
+            flash.message="PASSWORD CHANGED SUCCESSFULLY"
                 forward(controller: 'User', action: 'index')
             }
             else{
-
-                flash.error =  user.errors
+                flash.error = "UNABLE TO CHANGE THE PASSWORD"
                 render(view: 'forgotPassword')
             }
         }
-
-    }
-
-    def topPosts() {
-        List<ResourceVO> topPosts = Resource.getTopPost()
-        println("$topPosts.id + $topPosts.createdBy + $topPosts.topicName")
-    }
 
 }

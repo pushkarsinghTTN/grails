@@ -52,13 +52,13 @@
                                 </div>
                                 <g:if test="${session.user}">
                                     <g:if test="${trendingTopics?.createdBy == session.user || session.user?.admin}">
-                                        <span type="img" class="glyphicon glyphicon-trash pull-right fa-2x"
-                                              style="margin-left: 10px;color: #007efc;"></span>
-                                        <span type="img" class="fa fa-file pull-right fa-2x"
-                                              style="margin-left: 10px;  margin-right: 5px;color: #007efc;"></span>
+                                        <a href="${createLink(controller: 'topic',action: 'delete', id: trendingTopics.id)}"><span type="img" class="glyphicon glyphicon-trash pull-right fa-2x"
+                                                                                                                                   style="margin-left: 10px;color: #007efc;"></span></a>
+                                        <a href="#"><span type="img" class="fa fa-file pull-right fa-2x"
+                                                          style="margin-left: 10px;  margin-right: 5px;color: #007efc;"></span></a>
                                     </g:if>
-                                    <span type="img" class="fa fa-envelope pull-right fa-2x"
-                                          style="margin-left: 10px;color: #007efc;"></span>
+                                    <a href="#"><span type="img" class="fa fa-envelope pull-right fa-2x"
+                                                      style="margin-left: 10px;color: #007efc;"></span></a>
 
                                     <select class="pull-right">
                                         <option value="${enumeration.Seriousness.VERYSERIOUS}">Very Serious</option>

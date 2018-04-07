@@ -25,9 +25,9 @@
 
             <ul class="nav navbar-nav col-lg-12">
                 <li class="col-lg-5 ">
-                    <form class="navbar-form navbar-left" action="/action_page.php">
+                    <g:form class="navbar-form navbar-left" controller="search" action="index">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search...">
+                            <input type="text" class="form-control" placeholder="Search..." name="searchObject">
 
                             <div class="input-group-btn">
                                 <button class="btn btn-default" type="submit">
@@ -35,7 +35,7 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    </g:form>
                 </li>
 
                 <g:if test="${session.user}">
