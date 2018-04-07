@@ -42,7 +42,7 @@
                         <div class="panel-body  ">
                             <div class="col-lg-12">
                                 <div class="col-lg-3" style="margin-top: 25px">
-                                    <i class="fa fa-user-circle fa-5x" aria-hidden="true"></i>
+                                    <i class="fa fa-user fa-5x" aria-hidden="true"></i>
 
                                 </div>
 
@@ -56,9 +56,6 @@
                                             <a href="${createLink(controller:'topic',action: 'show',id: topic.id)}" class="pull-right">${topic.name}</a>
                                             <br><br>
 
-                                            %{--<div class="col-lg-12">--}%
-                                                %{--<p>akjbcadbcajncanclkaccksdm csdlndcskdncpsdmdc sdlcnklsdclkddnc sdlcnsdmcpsdpmc esdlc ldnclksdncsld sdlcnsdcklsdcklsdnc scsdncsclsd csldnfklfc</p>--}%
-                                            %{--</div>--}%
 
                                         </span>
 

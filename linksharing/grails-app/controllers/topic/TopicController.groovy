@@ -43,15 +43,16 @@ class TopicController {
 
     }
 
-    def delete(Integer topicid) {
-        Topic proxytopic = Topic.load(topicid)
+    def delete() {
+        Topic proxytopic = Topic.load(params.id)
         if(!proxytopic){
             flash.error="NO SUCH TOPIC IN OUR DATABASE"
             render("NO SUCH TOPIC IN OUR DATABASE")
         }
         else{proxytopic.discard()
         proxytopic.delete(flush:true)
-        render("DELETED SUCCESSFULLY")}
+        //render("DELETED SUCCESSFULLY")
+        redirect(controller: 'user',action: 'index')}
     }
 
 }

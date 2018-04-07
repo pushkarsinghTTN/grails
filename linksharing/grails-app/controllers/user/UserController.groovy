@@ -1,15 +1,22 @@
 package user
 
+import co.TrendingTopicsCO
 import enumeration.Visibility
 import subscription.Subscription
 import topic.Topic
+import vo.InboxVO
+import vo.SubscriptionsVO
+import vo.TrendingTopicsVO
 
 class UserController {
 
     def index() {
-        if(session.user)
-        render(view: 'index')
-        else
+        if (session.user) {
+            List<InboxVO> unReadResourcesList = session.user.getUnReadResources()
+            List<SubscriptionsVO> subscriptionsList = session.user.getUserSubscriptions()
+            List<TrendingTopicsVO> trendingTopicsList= Topic.getTrendingTopics(new TrendingTopicsCO(sessionUser: session.user))
+            render(view: 'index', model: [unReadResourcesList: unReadResourcesList, subscriptionsList: subscriptionsList,trendingTopicsList:trendingTopicsList])
+        } else
             redirect(controller: 'login', action: 'index')
     }
 

@@ -1,11 +1,13 @@
 package topic
 
+import co.TrendingTopicsCO
 import resource.Resource
 import subscription.Subscription
 import user.User
 import enumeration.Seriousness
 import enumeration.Visibility
 import vo.ResourceVO
+import vo.TrendingTopicsVO
 
 class Topic {
     String name
@@ -49,7 +51,6 @@ class Topic {
                 '}';
     }
 
-
 //    static getTrendingTopics() {
 //        List<Topic> trendingTopics = Resource.createCriteria().list() {
 //            projections {
@@ -72,25 +73,38 @@ class Topic {
 //        return result
 //    }
 
-    static getTrendingTopics() {
-        List<Topic> trendingTopics = Resource.createCriteria().list() {
+    static List<TrendingTopicsVO> getTrendingTopics(TrendingTopicsCO trendingTopicsCO) {
+        List<Topic> list = Resource.createCriteria().list() {
             projections {
                 groupProperty('topic')
-//                property('t.name')
-//                property('t.visibility')
                 count('topic.id', 'count')
-                //property('t.createdBy')
             }
-//            eq('t.visibility', Visibility.PUBLIC)
             order('count', 'desc')
-            //order('topic.name', 'asc')
             maxResults(5)
         }
+        list.each {println(it[0])}
+        List<TrendingTopicsVO> trendingTopicsList = []
+        list.each {
+            if (trendingTopicsCO.sessionUser) {
+                Subscription subscription = Subscription.findByUserAndTopic(trendingTopicsCO.sessionUser, it[0])
+                if (subscription)
+                    trendingTopicsList.add(new TrendingTopicsVO(ownerName: it[0].createdBy.getName(),
+                            ownerUsername: it[0].createdBy.username, subscriptionId: subscription.id,
+                            topicId: it[0].id, topicName: it[0].name, resourcesCount: it[0].resources.size(),
+                            subscriptionCount: it[0].count, subscriptionSeriousness: subscription.seriousness,
+                            topicVisibility: it[0].visibility))
+                else
+                    trendingTopicsList.add(new TrendingTopicsVO(ownerName: it[0].createdBy.getName(),
+                            ownerUsername: it[0].createdBy.username, topicId: it[0].id, topicName: it[0].name, resourcesCount: it[0].resources.size(),
+                            subscriptionCount: it[0].count, topicVisibility: it[0].visibility))
+            } else
+                trendingTopicsList.add(new TrendingTopicsVO(ownerName: it[0].createdBy.getName(),
+                        ownerUsername: it[0].createdBy.username, topicId: it[0].id, topicName: it[0].name, resourcesCount: it[0].resources.size(),
+                        subscriptionCount: it[0].count, topicVisibility: it[0].visibility))
 
-        List<Topic> result=[]
-        trendingTopics.each {result.add(it[0])}
+        }
 
-        return result
+        return trendingTopicsList
     }
 
     List<User> getSubscribedUsers() {

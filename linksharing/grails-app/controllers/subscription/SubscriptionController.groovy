@@ -45,11 +45,9 @@ class SubscriptionController {
     }
 
     def delete() {
-        //println(params.topicId)
-        Topic topic= Topic.findById(params.topicId)
-        Subscription subscription = Subscription.findByUserAndTopic(session.user,topic)
-        //User user= session.user
-        //session.user.removeFromSubscriptions(subscription)
+//        Topic topic= Topic.findById(params.topicId)
+//        Subscription subscription = Subscription.findByUserAndTopic(session.user,topic)
+        Subscription subscription = Subscription.findById(params.subscriptionId)
         if (!subscription) {
             flash.error = "NO SUCH SUBSCRIPTION IN OUR DATABASE"
             render("NO SUCH SUBSCRIPTION IN OUR DATABASE")
@@ -57,7 +55,6 @@ class SubscriptionController {
             subscription.discard()
             subscription.delete(flush: true)
             redirect(controller:'user',action:'index')
-            //render("DELETED SUCCESSFULLY")
         }
     }
 }

@@ -15,7 +15,7 @@
 </head>
 
 <body>
-%{--<% topic.Topic topic = topic.Topic.findById(params.id) %>--}%
+
 <div class="container">
     <div class="col-lg-6">
         <div class="col-lg-12">
@@ -182,6 +182,7 @@
                                             <span class="pull-right" style="margin-right: 0px;color: #007efc"><a
                                                     href="#"
                                                     style="color: #007efc;font-size: 75%">Download</a>
+                                                <a href="${createLink(controller: 'resource', action: 'showPost', id: resourceList.id)}">View Post</a>
                                         </div>
                                     </div>
 

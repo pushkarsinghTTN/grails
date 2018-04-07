@@ -4,15 +4,17 @@ import topic.Topic
 
 class DocumentResourceController {
 
+    ResourceService resourceService
+
     def index() { }
 
     def save(){
-        Resource documentResource = new DocumentResource(createdBy: session.user, description: params.documentResourceDescription, topic: Topic.findByName(params.topicName))
-        if (documentResource.save(flush: true)) {
-            log.info("Saved Successfully : $documentResource")
+        params.createdBy=session.user
+
+        if(resourceService.saveDocumentResource(params)){
             flash.message = "DOCUMENT RESOURCE SAVED"
-        } else {
-            log.error("Error while saving : $documentResource")
+        }
+        else{
             flash.message = "ERROR"
         }
         redirect(controller: 'user', action: 'index')

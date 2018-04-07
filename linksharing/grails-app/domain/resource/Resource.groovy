@@ -7,7 +7,9 @@ import resourceRating.ResourceRating
 import topic.Topic
 import user.User
 import vo.RatingInfoVO
+import vo.RecentSharesVO
 import vo.ResourceVO
+import vo.TopPostsVO
 
 abstract class Resource {
 
@@ -76,9 +78,9 @@ abstract class Resource {
         return ratingInfoVO
     }
 
-    static List<ResourceVO> getTopPost(){
-        List<ResourceVO> topPosts = ResourceRating.createCriteria().list{
-            projections{
+    static List<TopPostsVO> getTopPost() {
+        def list = ResourceRating.createCriteria().list {
+            projections {
                 createAlias('resource', 'r')
                 groupProperty('r.id')
                 property('r.createdBy')
@@ -89,27 +91,28 @@ abstract class Resource {
             order('count', 'desc')
             maxResults(5)
         }
-        List result = []
-        topPosts.each{
-            result.add(new ResourceVO(id: it[0],createdBy: it[1],topic: it[2],count: it[3],description: it[4]))
+        List<TopPostsVO> topPostsList = []
+        list.each {
+            topPostsList.add(new TopPostsVO(ownerName: it[1].getName(), ownerUsername: it[1].username,
+                    topicName: it[2].name, topicId: it[2].id, resourceId: it[0], resourceDescription: it[4]))
         }
-        println("Returning top posts : " + result)
-        return result
+        return topPostsList
     }
 
-    static List<Resource> getRecentShares(){
+    static List<RecentSharesVO> getRecentShares() {
 
-        List<Resource> recentShares = Resource.createCriteria().list {
-           // eq('topic.visibility',Visibility.PUBLIC)
+        List<Resource> resourceList = Resource.createCriteria().list {
             order("dateCreated", "desc")
             maxResults(2)
 
         }
-        println("about to return")
-        return recentShares
+        List<RecentSharesVO> recentSharesList = []
+        resourceList.each {
+            recentSharesList.add(new RecentSharesVO(ownerName: it.createdBy.getName(),
+                    ownerUsername: it.createdBy.username, topicName: it.topic.name, topicId: it.topic.id,
+                    resourceDescription: it.description, resourceId: it.id))
+        }
+        return recentSharesList
     }
 
-    static findLinkOrDocument(Resource resource){
-
-    }
 }

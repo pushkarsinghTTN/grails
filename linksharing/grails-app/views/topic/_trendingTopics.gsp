@@ -3,11 +3,11 @@
     <div class="panel-heading">
         <h3 class="panel-title">
             Trending topics
-            <a href="#" class="pull-right">View All</a>
+            %{--<a href="#" class="pull-right">View All</a>--}%
         </h3>
     </div>
 
-    <g:each in="${topic.Topic.getTrendingTopics()}" var="trendingTopics">
+    <g:each in="${trendingTopicsList}" var="trendingTopics">
         <div class="panel-body">
             <div class="row">
                 <div class="col-sm-12">
@@ -16,30 +16,30 @@
                         </div>
 
                         <div class="col-sm-9">
-                            <a href="#" class="pull-left">${trendingTopics.name}</a>
+                            <a href="#" class="pull-left">${trendingTopics.topicName}</a>
                             <br>
 
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <h6 class="text-muted">@${trendingTopics.createdBy.username}</h6>
-                                    <% subscription.Subscription subscription = subscription.Subscription.findByUserAndTopic(session.user, trendingTopics) %>
+                                    <h6 class="text-muted">@${trendingTopics.ownerName}</h6>
                                     <g:if test="${session.user}">
-                                        <g:if test="${subscription && trendingTopics.createdBy != session.user}">
+                                        <g:if test="${trendingTopics.subscriptionId && trendingTopics.ownerUsername != session.user.username}">
                                             <g:link controller="subscription" action="delete"
-                                                    params="${[topicId: trendingTopics.id]}">Unsubscribe</g:link>
+                                                    params="${[subscriptionId: trendingTopics.subscriptionId]}">Unsubscribe</g:link>
                                         </g:if>
-                                        <g:elseif test="${subscription && trendingTopics.createdBy == session.user}">
+                                        <g:elseif
+                                                test="${trendingTopics.subscriptionId && trendingTopics.ownerUsername == session.user.username}">
                                         </g:elseif>
                                         <g:else>
                                             <g:link controller="subscription" action="save"
-                                                    params="${[topicId: trendingTopics.id]}">Subscribe</g:link>
+                                                    params="${[topicId: trendingTopics.topicId]}">Subscribe</g:link>
                                         </g:else>
                                     </g:if>
                                 </div>
 
                                 <div class="col-sm-3">
                                     <h6 class="text-muted pull-left">Subscriptions</h6>
-                                    <h6 class="text-primary">${trendingTopics.subscriptions.size()}</h6>
+                                    <h6 class="text-primary">${trendingTopics.subscriptionCount}</h6>
                                 </div>
 
                                 <div class="col-sm-3">
@@ -47,28 +47,34 @@
                                         <br>
                                         <br>
 
-                                        <p class="text-primary">${trendingTopics.resources.size()}</p>
+                                        <p class="text-primary">${trendingTopics.resourcesCount}</p>
                                     </h6>
                                 </div>
                                 <g:if test="${session.user}">
-                                    <g:if test="${trendingTopics?.createdBy == session.user || session.user?.admin}">
-                                        <a href="${createLink(controller: 'topic',action: 'delete', id: trendingTopics.id)}"><span type="img" class="glyphicon glyphicon-trash pull-right fa-2x"
-                                                                                                                                   style="margin-left: 10px;color: #007efc;"></span></a>
+                                    <g:if test="${trendingTopics.ownerUsername == session.user.username || session.user.admin}">
+                                        <a href="${createLink(controller: 'topic', action: 'delete', id: trendingTopics.topicId)}">
+                                            <span type="img" class="glyphicon glyphicon-trash pull-right fa-2x"
+                                                  style="margin-left: 10px;color: #007efc;"></span></a>
                                         <a href="#"><span type="img" class="fa fa-file pull-right fa-2x"
-                                                          style="margin-left: 10px;  margin-right: 5px;color: #007efc;"></span></a>
+                                                          style="margin-left: 10px;  margin-right: 5px;color: #007efc;"></span>
+                                        </a>
                                     </g:if>
                                     <a href="#"><span type="img" class="fa fa-envelope pull-right fa-2x"
                                                       style="margin-left: 10px;color: #007efc;"></span></a>
 
                                     <select class="pull-right">
+                                        <option class="placeholder" selected disabled
+                                                value="">${trendingTopics.subscriptionSeriousness}</option>
                                         <option value="${enumeration.Seriousness.VERYSERIOUS}">Very Serious</option>
                                         <option value="${enumeration.Seriousness.SERIOUS}">Serious</option>
                                         <option value="${enumeration.Seriousness.CASUAL}">Casual</option>
                                     </select>
 
-                                    <g:if test="${trendingTopics.createdBy == session.user || session.user?.admin}">
+                                    <g:if test="${trendingTopics.ownerUsername == session.user.username || session.user?.admin}">
                                         <div>
                                             <select class="pull-right">
+                                                <option class="placeholder" selected disabled
+                                                        value="">${trendingTopics.topicVisibility}</option>
                                                 <option value="${enumeration.Visibility.PRIVATE}">Private</option>
                                                 <option value="${enumeration.Visibility.PUBLIC}">Public</option>
                                             </select>

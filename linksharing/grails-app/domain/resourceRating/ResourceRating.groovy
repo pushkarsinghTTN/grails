@@ -14,7 +14,7 @@ class ResourceRating {
 
     static constraints = {
         resource(nullable: false)
-        score(nullable: false, min: 0, max: 5)
+        score(nullable: false, min: 0, max: 6)
         createdBy(nullable: false)
     }
 }

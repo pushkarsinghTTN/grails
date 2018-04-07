@@ -62,7 +62,6 @@ dependencies {
     testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
     compile 'org.grails.plugins:grails-console:2.1.1'
     compile "org.grails.plugins:gsp:3.3.1"
-
 }
 
 bootRun {

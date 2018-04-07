@@ -5,6 +5,8 @@ import readingItem.ReadingItem
 import resource.Resource
 import subscription.Subscription
 import topic.Topic
+import vo.InboxVO
+import vo.SubscriptionsVO
 
 class User {
     String firstname
@@ -38,10 +40,12 @@ class User {
                 def password2 = obj.confirmpassword
                 return (password == password2) ? true : ['invalid.matchingpasswords']
             }
+            else
+                return true
         })
         firstname(nullable: false, blank: false)
         lastname(nullable: false, blank: false)
-        username(nullable: false, blank: false)
+        username(nullable: false, blank: false,unique: true)
         photo(nullable: true, sqlType: 'longBlob')
         admin(nullable: true)
         active(nullable: true)
@@ -61,16 +65,20 @@ class User {
                 '}';
     }
 
-    List<ReadingItem> getUnReadResources(/*SearchCO searchCO*/) {
+    List<InboxVO> getUnReadResources() {
 
         List<ReadingItem> unReadItems = ReadingItem.createCriteria().list(max: 10, offset: 0) {
             eq('isRead', false)
             eq('user', this)
-            /*if (searchCO.q) {
-                ilike('resource.description', "%searchCO.q%")
-            }*/
         }
-        return unReadItems
+        List<InboxVO> unReadItemsList = []
+        unReadItems.each{
+            unReadItemsList.add(new InboxVO(ownerName: it.resource.createdBy.getName(),
+                    ownerUsername: it.resource.createdBy.username,topicName: it.resource.topic.name,
+                    topicId: it.resource.topic.id,resourceDescription: it.resource.description,
+                    resourceId: it.resource.id, readingItemId: it.id))
+        }
+        return unReadItemsList
     }
 
     List<Topic> getSubscribedTopic() {
@@ -105,6 +113,20 @@ class User {
             }
         }
         return userTopics
+    }
+
+    List<SubscriptionsVO> getUserSubscriptions(){
+
+        if (this.subscriptions){
+            List<SubscriptionsVO> subscriptionList =[]
+            this.subscriptions.each{
+                subscriptionList.add(new SubscriptionsVO(ownerName: it.topic.createdBy.getName(),
+                        ownerUsername: it.topic.createdBy.username, subscriptionId: it.id, topicId: it.topic.id,
+                        resourcesCount: it.topic.resources.size(), subscriptionCount: it.topic.subscriptions.size(),
+                        subscriptionSeriousness: it.seriousness, topicVisibility: it.topic.visibility, topicName: it.topic.name))
+            }
+            return subscriptionList
+        }
     }
 
 }
