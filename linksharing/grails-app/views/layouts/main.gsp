@@ -77,7 +77,7 @@
                             ${session.user.getName()}
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><g:link controller="user" action="index">Profile</g:link></li>
+                            <li><g:link controller="user" action="editProfile">Profile</g:link></li>
                             <g:if test="${session.user.admin}">
                             <li><g:link controller="user" action="showUsers">Users</g:link></li>
                             <li><g:link controller="user" action="showTopics">Topic</g:link></li>

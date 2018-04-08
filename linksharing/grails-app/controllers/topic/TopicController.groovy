@@ -50,4 +50,13 @@ class TopicController {
         }
     }
 
+    def changeName(){
+        if(topicService.editTopicName(params)){
+            flash.message = "Topic Name Changed Successfully"
+        }else{
+            flash.error= "Error Changing Topic Name"
+        }
+        redirect(controller: 'user',action: 'index')
+    }
+
 }

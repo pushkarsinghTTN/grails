@@ -42,4 +42,18 @@ class TopicService {
         } else
             return null
     }
+
+    def editTopicName(Map topicData){
+        Topic topic = Topic.findById(topicData.topicId)
+        topic.name= topicData.changedTopicName
+        if(topic.save(flush:true)){
+            log.info("Topic Name Changed Successfully : $topic")
+            return true
+        }else
+        {
+            log.error("Error Changing Topic Name : $topic")
+            topic.errors.allErrors.each {println it}
+            return false
+        }
+    }
 }

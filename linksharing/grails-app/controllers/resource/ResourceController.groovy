@@ -63,4 +63,13 @@ class ResourceController {
         redirect(controller: 'resource', action: 'showPost', model: [params])
     }
 
+    def changeDesciption(){
+        if(resourceService.changeResourceDescription(params)){
+            flash.message= "Description Changed Successfully"
+        }else{
+            flash.error = "Unable To Resource Description"
+        }
+        redirect(controller: 'user', action: 'editProfile')
+    }
+
 }

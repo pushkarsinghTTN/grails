@@ -104,7 +104,7 @@
                                 <div class="col-lg-12">
                                     <div class="col-lg-6">
                                         <p style="color: #007efc">Subscriptions</p>
-                                        <p1><a href="#">${subscribedUser.subscriptionCount}</a></p1>
+                                        <p1 style="color: #007efc">${subscribedUser.subscriptionCount}</p1>
                                     </div>
 
                                     <div class="col-lg-6">
