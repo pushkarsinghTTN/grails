@@ -91,16 +91,16 @@ class Topic {
                     trendingTopicsList.add(new TrendingTopicsVO(ownerName: it[0].createdBy.getName(),
                             ownerUsername: it[0].createdBy.username, subscriptionId: subscription.id,
                             topicId: it[0].id, topicName: it[0].name, resourcesCount: it[0].resources.size(),
-                            subscriptionCount: it[0].count, subscriptionSeriousness: subscription.seriousness,
+                            subscriptionCount: it[0].subscriptions.size(), subscriptionSeriousness: subscription.seriousness,
                             topicVisibility: it[0].visibility))
                 else
                     trendingTopicsList.add(new TrendingTopicsVO(ownerName: it[0].createdBy.getName(),
                             ownerUsername: it[0].createdBy.username, topicId: it[0].id, topicName: it[0].name, resourcesCount: it[0].resources.size(),
-                            subscriptionCount: it[0].count, topicVisibility: it[0].visibility))
+                            subscriptionCount: it[0].subscriptions.size(), topicVisibility: it[0].visibility))
             } else
                 trendingTopicsList.add(new TrendingTopicsVO(ownerName: it[0].createdBy.getName(),
                         ownerUsername: it[0].createdBy.username, topicId: it[0].id, topicName: it[0].name, resourcesCount: it[0].resources.size(),
-                        subscriptionCount: it[0].count, topicVisibility: it[0].visibility))
+                        subscriptionCount: it[0].subscriptions.size(), topicVisibility: it[0].visibility))
 
         }
 

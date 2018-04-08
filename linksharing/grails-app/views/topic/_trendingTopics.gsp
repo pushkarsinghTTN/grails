@@ -16,7 +16,7 @@
                         </div>
 
                         <div class="col-sm-9">
-                            <a href="#" class="pull-left">${trendingTopics.topicName}</a>
+                            <a href="${createLink(controller: 'topic', action: 'show',id: trendingTopics.topicId)}" class="pull-left">${trendingTopics.topicName}</a>
                             <br>
 
                             <div class="row">
