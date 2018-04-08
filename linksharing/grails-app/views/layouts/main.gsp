@@ -79,9 +79,9 @@
                         <ul class="dropdown-menu">
                             <li><g:link controller="user" action="editProfile">Profile</g:link></li>
                             <g:if test="${session.user.admin}">
-                            <li><g:link controller="user" action="showUsers">Users</g:link></li>
-                            <li><g:link controller="user" action="showTopics">Topic</g:link></li>
-                            <li><g:link controller="resource" action="showPosts">Post</g:link></li>
+                            <li><g:link controller="user" action="showUserListToAdmin">Users</g:link></li>
+                            %{--<li><g:link controller="user" action="showTopics">Topic</g:link></li>--}%
+                            %{--<li><g:link controller="resource" action="showPosts">Post</g:link></li>--}%
                             </g:if>
                             <li><g:link controller="login" action="logout">Logout</g:link></li>
                         </ul>

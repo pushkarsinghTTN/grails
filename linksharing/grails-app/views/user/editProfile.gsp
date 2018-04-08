@@ -10,40 +10,33 @@
 <body>
 <div class="container">
     <div class="col-lg-6">
-        <div class="panel-body  ">
-            <div class="col-lg-12">
-                <div class="col-lg-3" style="margin-top: 25px">
-                    <i class="fa fa-user-circle fa-5x" aria-hidden="true"></i>
-
-                </div>
-
-                <div class="col-lg-9">
-                    <div class="col-lg-12">
-                        <h5>${user.name}</h5>
-
-                        <p class="text-muted">@${user.username}</p>
-                    </div>
-
-                    <div class="col-lg-12">
-                        <div class="col-lg-4">
-                            <p style="color: #007efc">Subscriptions</p>
-                            <p1><a href="#">${user.subscriptionCount}</a></p1>
+        <div class="panel panel-primary col-lg-12">
+            <div class="panel-body">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-3 fa fa-user fa-5x">
                         </div>
 
-                        <div class="col-lg-4">
-                            <p style="color: #007efc">Topics</p>
-                            <p1 style="color: #2e6da4">${user.topicCount}</p1>
+                        <div class="col-sm-9">
 
-                        </div>
+                            <p>${user.name}<br>
+                                <small class="text-muted">@${user.username}</small>
+                            </p>
 
-                        <div class="col-lg-4">
-                            <p style="color: #007efc">Posts</p>
-                            <p1 style="color: #2e6da4">${user.resourceCount}</p1>
+                            <div class="row">
 
+                                <h6 class="text-muted col-sm-6">Subscriptions
+                                    <p class="text-primary">${user.subscriptionCount}</p>
+                                </h6>
+
+                                <h6 class="text-muted col-sm-6">Topics
+                                    <p class="text-primary">${user.resourceCount}</p>
+                                </h6>
+
+                            </div>
                         </div>
 
                     </div>
-
                 </div>
             </div>
         </div>

@@ -35,7 +35,7 @@ class UserService {
                     ownerName: it.createdBy.getName(), ownerUsername: it.createdBy.username, topicName: it.topic.name))
         }
 
-        Map map = [userInformation: userInformation, userTopics: userTopics,userPosts:userPosts]
+        Map map = [userInformation: userInformation, userTopics: userTopics, userPosts: userPosts]
         return map
     }
 
@@ -68,5 +68,36 @@ class UserService {
             user.errors.allErrors.each { println it }
             return false
         }
+    }
+
+    def showAllUsers() {
+        List<User> userList = User.findAllByAdmin(false)
+        if (userList) {
+            List<UserVO> allUsers = []
+            userList.each {
+                allUsers.add(new UserVO(name: it.getName(), username: it.username,
+                        subscriptionCount: it.subscriptions.size(), resourceCount: it.resources.size(),
+                        topicCount: it.topics.size(), active: it.active, userId: it.id))
+            }
+            return allUsers
+        } else
+            return null
+    }
+
+    def activateDeactivate(Integer userId) {
+        User user = User.findById(userId)
+        if (user.active)
+            user.active = false
+        else
+            user.active = true
+        if (user.save(flush: true)) {
+            log.info("State Successfully Changed : $user")
+            return true
+        } else {
+            log.error("Unable to Change State : $user")
+            user.errors.allErrors.each { println it }
+            return false
+        }
+
     }
 }

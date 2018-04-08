@@ -6,4 +6,6 @@ class UserVO {
     Integer subscriptionCount
     Integer resourceCount
     Integer topicCount
+    Boolean active
+    Integer userId
 }

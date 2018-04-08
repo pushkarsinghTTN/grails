@@ -46,5 +46,19 @@ class UserController {
         redirect(controller: 'user', action: 'index')
     }
 
+    def showUserListToAdmin(){
+        List<UserVO> allUsers= userService.showAllUsers()
+        render(view: 'userList', model: [allUsers:allUsers])
+    }
+
+    def changeState(){
+        println "Printing params- $params.id"
+        if(userService.activateDeactivate(new Integer(params.id))){
+            flash.message= "State Changed"
+        }else
+            flash.error= "Unable To Change State"
+        redirect(controller: 'user', action: 'showUserListToAdmin')
+    }
+
 
 }
