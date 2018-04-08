@@ -1,7 +1,9 @@
 package resource
 
 import grails.gorm.transactions.Transactional
+import resourceRating.ResourceRating
 import topic.Topic
+import vo.ResourceVO
 
 @Transactional
 class ResourceService {
@@ -33,13 +35,60 @@ class ResourceService {
         }
     }
 
-    def showResourcePage(Long resourceId){
+    def showResourcePage(Long resourceId) {
         Resource resource = Resource.findById(resourceId)
-        if(resource)
-            return resource
-        else
+        if (resource) {
+            ResourceVO resourceVO = new ResourceVO(resourceId: resourceId, topicId: resource.topic.id,
+                    resourceDescription: resource.description, ownerName: resource.createdBy.getName(),
+                    ownerUsername: resource.createdBy.username, topicName: resource.topic.name)
+            return resourceVO
+        } else
             return null
 
+    }
+
+    def saveRating(Map resourceData) {
+        Resource resource = Resource.findById(resourceData.resourceId)
+        ResourceRating resourceRating = ResourceRating.findByCreatedByAndResource(resourceData.ratedBy, resource)
+        if (resourceRating) {
+            resourceRating.score = resourceData.score
+            if (resourceRating.save(flush: true)) {
+                log.info("Score Updated Successfully : $resourceRating")
+                return resourceRating
+            } else {
+                log.error("Score Updation Failed : $resourceRating")
+                resourceRating.errors.allErrors.each { println it }
+                return null
+            }
+        } else {
+            resourceRating = new ResourceRating(createdBy: resourceData.ratedBy, resource: resource, score: resourceData.score)
+            if (resourceRating.save(flush: true)) {
+                log.info("Score Saved Successfully : $resourceRating")
+                return resourceRating
+            } else {
+                log.error("Error while saving : $resourceRating")
+                resourceRating.errors.allErrors.each { println(it) }
+                return null
+            }
+        }
+    }
+
+    def deleteResource(Integer resourceId) {
+        Resource proxyresource = Resource.load(resourceId)
+        if (proxyresource) {
+            proxyresource.discard()
+            if (proxyresource.delete(flush: true)) {
+                log.info("Resource Deleted Successfully : $proxyresource")
+                return true
+            } else {
+                log.error("Unable To Delete Resource : $proxyresource")
+                proxyresource.errors.allErrors.each { println it }
+                return false
+            }
+        } else {
+            log.info("No Such Record In Our Database")
+            return false
+        }
     }
 
 

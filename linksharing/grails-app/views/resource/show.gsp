@@ -33,15 +33,15 @@
                                     <br>
 
                                     <div class="col-lg-5">
-                                        <span>${resource.createdBy.getName()} <small
-                                                class="text-muted">@${resource.createdBy.username}</small>
+                                        <span>${resource.ownerName} <small
+                                                class="text-muted">@${resource.ownerUsername}</small>
                                         </span>
 
                                     </div>
 
                                     <div class="col-lg-7" style="text-align: right">
-                                        <p><a href="${createLink(controller: "topic", action: "show", id: resource.topic.id)}"
-                                              class="pull-right">${resource.topic.name}</a></p><br>
+                                        <p><a href="${createLink(controller: "topic", action: "show", id: resource.topicId)}"
+                                              class="pull-right">${resource.topicName}</a></p><br>
                                     </div>
 
                                     <g:if test="${session.user}">
@@ -62,7 +62,7 @@
                                                 <input class="star star-1" id="star-1" type="radio" name="star"
                                                        value="1"/>
                                                 <label class="star star-1" for="star-1"></label>
-                                                <g:hiddenField name="resourceId" value="${resource.id}" />
+                                                <g:hiddenField name="id" value="${resource.resourceId}" />
                                                 <input type="submit" value="Rate">
                                             </g:form>
                                         </div>
@@ -73,7 +73,7 @@
 
                                     <div class="col-lg-12">
                                         <div class="col-lg-12">
-                                            <p>${resource.description}</p>
+                                            <p>${resource.resourceDescription}</p>
                                         </div>
                                     </div>
 
