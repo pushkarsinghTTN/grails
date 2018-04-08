@@ -37,6 +37,12 @@ if (Environment.isDevelopmentMode() && targetDir != null) {
 logger 'grails.app', INFO, ['STDOUT'], false
 logger 'linksharing', INFO, ['STDOUT'], false
 logger 'login', INFO, ['STDOUT'], false
+logger 'user', INFO, ['STDOUT'], false
+logger 'topic', INFO, ['STDOUT'], false
+logger 'resource', INFO, ['STDOUT'], false
+logger 'readingItem', INFO, ['STDOUT'], false
+logger 'resourceRating', INFO, ['STDOUT'], false
+logger 'subscription', INFO, ['STDOUT'], false
 logger  'Util', INFO, ['STDOUT'],false
 logger("grails.app.controllers.linksharing.ApplicationInterceptor", INFO, ['STDOUT'], false)
 root(ERROR, ['STDOUT'])

@@ -10,42 +10,39 @@ class SubscriptionController {
 
     def index() {}
 
-    def save(){
-        Map map=[topicId: new Integer(params.topicId), subscriber: session.user]
-        if(subscriptionService.saveSubscription(map)){
+    def save() {
+        Map map = [topicId: new Integer(params.topicId), subscriber: session.user]
+        if (subscriptionService.saveSubscription(map)) {
             flash.message = "SUBSCRIPTION ADDED SUCCESSFULLY"
-        }else {
-            flash.error="SUBSCRIPTION NOT DONE"
+        } else {
+            flash.error = "SUBSCRIPTION NOT DONE"
         }
         redirect(controller: 'user', action: 'index')
     }
 
     def update(Integer subscriptionId, String seriousness) {
-        seriousness=Seriousness.convert(seriousness)
-        Subscription subscription= Subscription.findById(subscriptionId)
-        if(subscription){
-            subscription.seriousness=seriousness
-            if(subscription.save(flush:true)){
+        seriousness = Seriousness.convert(seriousness)
+        Subscription subscription = Subscription.findById(subscriptionId)
+        if (subscription) {
+            subscription.seriousness = seriousness
+            if (subscription.save(flush: true)) {
                 log.info("Saved Successfully : $subscription")
                 render("SUCCESS")
-            }else
-            {
+            } else {
                 log.error("Error while Saving : $subscription")
                 render("FAILURE")
             }
-        }else
+        } else
             render("SUBSCRIPTION NOT FOUND")
     }
 
     def delete() {
-        Subscription subscription = Subscription.findById(params.subscriptionId)
-        if (!subscription) {
+        if (subscriptionService.deleteSubscription(params)) {
+            flash.message = "SUBSCRIPTION DELETED SUCCESSFULLY"
+            redirect(controller: 'user', action: 'index')
+        } else {
             flash.error = "NO SUCH SUBSCRIPTION IN OUR DATABASE"
             render("NO SUCH SUBSCRIPTION IN OUR DATABASE")
-        } else {
-            subscription.discard()
-            subscription.delete(flush: true)
-            redirect(controller:'user',action:'index')
         }
     }
 }

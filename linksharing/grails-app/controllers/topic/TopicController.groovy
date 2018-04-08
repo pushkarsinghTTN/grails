@@ -8,19 +8,6 @@ class TopicController {
 
     def index() {}
 
-//    def show(Integer topicid) {
-//        Topic topic = Topic.read(topicid)
-//        render("CreatedBy- $topic.createdBy.firstname Topicname- $topic.name")
-//
-//    }
-
-//    def show(ResourceSearchCo resourceSearchCo){
-//        Topic topic = Resource.search(resourceSearchCo)
-//        render("CreatedBy- $topic.createdBy.firstname Topicname- $topic.name")
-//        User user = User.read(session.user.id)
-//        render(user.topics)
-//
-//    }
     def show() {
         Long topicId = new Long(params.id)
         def infoMap = topicService.getCompleteTopicInfo(topicId)
