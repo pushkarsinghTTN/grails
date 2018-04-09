@@ -28,11 +28,9 @@
 
                 <div class="panel-body  ">
                     <div class="col-lg-12">
-                        <div class="col-lg-3" style="margin-top: 25px">
-                            <i class="fa fa-user-circle fa-5x" aria-hidden="true"></i>
-
+                        <div class="col-sm-3">
+                            <ls:userImage username="${topicVO.ownerUsername}" height="100" width="100"/>
                         </div>
-
                         <div class="col-lg-9">
                             <div class="col-lg-12">
                                 <h5><a href="#">${topicVO.topicName}</a> <span
@@ -89,9 +87,8 @@
                 <div class="panel-body  ">
                     <g:each in="${subscribedUserList}" var="subscribedUser">
                         <div class="col-lg-12">
-                            <div class="col-lg-3" style="margin-top: 25px">
-                                <i class="fa fa-user-circle fa-5x" aria-hidden="true"></i>
-
+                            <div class="col-sm-3">
+                                <ls:userImage username="${subscribedUser.username}" height="100" width="100"/>
                             </div>
 
                             <div class="col-lg-9">
@@ -157,9 +154,8 @@
                     <div class="panel-body  ">
                         <g:each in="${resourceList}" var="resource">
                             <div class="col-lg-12">
-                                <div class="col-lg-3" style="margin-top: 25px">
-                                    <i class="fa fa-user-circle fa-5x" aria-hidden="true"></i>
-
+                                <div class="col-sm-3">
+                                    <ls:userImage username="${resource.ownerUsername}" height="100" width="100"/>
                                 </div>
 
                                 <div class="col-lg-9">

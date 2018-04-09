@@ -15,8 +15,9 @@
                 <div class="panel-body">
                     <div class="col-sm-12">
                         <div class="row">
-                            <div class="col-sm-3 fa fa-user fa-5x">
-                            </div>
+                            <div class="col-sm-3">
+                        <ls:userImage username="${user.username}" height="100" width="100"/>
+                        </div>
 
                             <div class="col-sm-9">
 

@@ -9,4 +9,9 @@ class LinkResource extends Resource{
     static constraints = {
         url(unique: true)
     }
+
+    def deleteResource() {
+        this.delete(flush: true)
+        return true
+    }
 }

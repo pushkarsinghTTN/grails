@@ -9,7 +9,8 @@
             <div class="col-sm-12">
                 <g:each in="${subscriptionsList}" var="subscribedTopics">
                     <div class="row">
-                        <div class="col-sm-3 fa fa-user fa-5x">
+                        <div class="col-sm-3">
+                            <ls:userImage username="${subscribedTopics.ownerUsername}" height="100" width="100"/>
                         </div>
 
                         <div class="col-sm-9">

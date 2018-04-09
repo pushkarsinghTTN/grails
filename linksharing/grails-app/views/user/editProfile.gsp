@@ -14,7 +14,8 @@
             <div class="panel-body">
                 <div class="col-sm-12">
                     <div class="row">
-                        <div class="col-sm-3 fa fa-user fa-5x">
+                        <div class="col-sm-3">
+                        <ls:userImage username="${user.username}" height="100" width="100"/>
                         </div>
 
                         <div class="col-sm-9">
@@ -64,7 +65,8 @@
                             <div class="col-lg-12 row">
                                 <div class="col-sm-12">
                                     <div class="row">
-                                        <div class="col-sm-3 glyphicon glyphicon-user fa-5x">
+                                        <div class="col-sm-3">
+                                            <ls:userImage username="${topic.ownerUsername}" height="100" width="100"/>
                                         </div>
 
                                         <div class="col-sm-9">
@@ -162,7 +164,8 @@
                             <div class="col-lg-12 row">
                                 <div class="col-sm-12">
                                     <div class="row">
-                                        <div class="col-sm-3 glyphicon glyphicon-user fa-5x">
+                                        <div class="col-sm-3">
+                                            <ls:userImage username="${post.ownerUsername}" height="100" width="100"/>
                                         </div>
 
                                         <div class="row">
@@ -211,7 +214,7 @@
                 </div>
 
                 <div class="panel-body ">
-                    <g:form controller="user" action="updateUser">
+                    <g:uploadForm controller="user" action="updateUser" enctype="multipart/form-data">
                         <div class="form-group col-lg-10">
                             <label>First Name*</label>
                             <input class="form-control" type="text" name="updatedFirstname" required>
@@ -241,7 +244,7 @@
                             <input type="submit" class="form-control btn-primary">
                         </div>
 
-                    </g:form>
+                    </g:uploadForm>
 
                 </div>
             </div>

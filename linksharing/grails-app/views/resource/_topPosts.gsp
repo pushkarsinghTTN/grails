@@ -15,9 +15,8 @@
     <div class="panel-body  ">
         <g:each in="${topPostsList}" var="topPosts">
             <div class="col-lg-12">
-                <div class="col-lg-3" style="margin-top: 25px">
-                    <i class="fa fa-user fa-5x" aria-hidden="true"></i>
-
+                <div class="col-sm-3">
+                    <ls:userImage username="${topPosts.ownerUsername}" height="100" width="100"/>
                 </div>
 
                 <div class="col-lg-9">

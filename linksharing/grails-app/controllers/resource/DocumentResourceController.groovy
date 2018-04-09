@@ -19,4 +19,9 @@ class DocumentResourceController {
         }
         redirect(controller: 'user', action: 'index')
     }
+
+    def list() {
+        params.max = 10
+        [documentInstanceList: DocumentResource.list(params), documentInstanceTotal: Document.count()]
+    }
 }

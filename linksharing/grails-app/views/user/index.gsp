@@ -15,9 +15,12 @@
             <div class="panel-body">
                 <div class="col-sm-12">
                     <div class="row">
-                        <div class="col-sm-3 fa fa-user fa-5x">
+                        %{--<div class="col-sm-3 fa fa-user fa-5x">--}%
+                        %{--</div>--}%
+                        <div class="col-sm-3">
+                            <ls:userImage username="${session.user.username}" height="100" width="100"/>
                         </div>
-
+                        %{--<img src="${createLink(controller: 'user', action: 'fetchUserImage', params: [username: session.user.username])}"/>--}%
                         <div class="col-sm-9">
 
                             <p>${session.user.getName()}<br>
@@ -48,7 +51,7 @@
         <div class="col-lg-12"><br></div>
         <br><br><br><br>
 
-<g:render template="subscriptions"></g:render>
+        <g:render template="subscriptions"></g:render>
 
         <br>
 

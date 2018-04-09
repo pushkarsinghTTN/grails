@@ -31,5 +31,10 @@ class LinksharingTagLib {
                 }
             }
     }
+
+    def userImage = { attrs, body ->
+        out << "<img src='${createLink(controller: 'user', action: 'fetchUserImage', params: [username: attrs.username])}' " +
+                " height='${attrs.height}' width='${attrs.width}'>"
+    }
     //static encodeAsForTags = [tagName: [taglib:'html'], otherTagName: [taglib:'none']]
 }

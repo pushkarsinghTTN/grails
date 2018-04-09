@@ -39,6 +39,7 @@ class LoginController {
     }
 
     def register() {
+        //println("printing params : $params")
         User user = loginService.registerUser(params)
         if (user) {
             flash.message = "SUCCESSFULLY REGISTERED"

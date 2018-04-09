@@ -14,6 +14,8 @@ class UserController {
 
     UserService userService
 
+    def assetResourceLocator
+
     def index() {
         if (session.user) {
             List<InboxVO> unReadResourcesList = session.user.getUnReadResources()
@@ -58,6 +60,22 @@ class UserController {
         }else
             flash.error= "Unable To Change State"
         redirect(controller: 'user', action: 'showUserListToAdmin')
+    }
+
+    def fetchUserImage(){
+        def user = User.findByUsername(params.username)
+        byte[] photo
+        if(!user?.photo){
+            println("Photo Not Found")
+            photo = assetResourceLocator.findAssetForURI('user.png').byteArray
+        }else {
+            println("Photo Found")
+            photo= user.photo
+        }
+        OutputStream out = response.getOutputStream()
+        out.write(photo)
+        out.flush()
+        out.close()
     }
 
 

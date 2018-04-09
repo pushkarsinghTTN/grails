@@ -45,7 +45,7 @@ class UserService {
         user.lastname = userData.updateLastname
         user.username = userData.updatedUsername
         if (userData.updatedPhoto)
-            user.photo = userData.updatedPhoto
+            user.photo = userData.updatedPhoto.bytes
         if (user.save(flush: true)) {
             log.info("Credentials Updated : $user")
             return true
