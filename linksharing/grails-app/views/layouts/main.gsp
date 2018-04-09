@@ -17,7 +17,7 @@
     <div class="container-fluid">
         <div class="col-lg-4">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">LinkSharing</a>
+                <a class="navbar-brand" href="${createLink(controller: 'login', action: 'index')}">LinkSharing</a>
             </div>
         </div>
 
